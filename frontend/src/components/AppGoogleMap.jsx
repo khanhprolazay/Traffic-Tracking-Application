@@ -1,5 +1,7 @@
-import { GoogleMap } from "@react-google-maps/api";
-import { useSelector } from "react-redux";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { useDispatch, useSelector } from "react-redux";
+import cameras from "../mock/cameras.mock.json";
+import { pushCamera } from "../app/slices/app.slice";
 
 const darkModeStyles = [
 	{ elementType: "geometry", stylers: [{ color: "#242f3e" }] },
@@ -88,23 +90,59 @@ const darkModeStyles = [
 	},
 ];
 
+const hideMarkerStyle = [
+	{
+		featureType: "poi",
+		elementType: "labels",
+		stylers: [{ visibility: "off" }],
+	},
+];
+
+const hideStationStyle = [
+	{
+		featureType: "transit.station",
+		elementType: "labels",
+		stylers: [{ visibility: "off" }],
+	},
+];
+
+const defaultStyles = [...hideMarkerStyle, ...hideStationStyle];
+
 const center = {
 	lat: 10.772641893294024,
 	lng: 106.69798218614284,
 };
 
-export const AppGoogleMap = ({className, children}) => {
+const AppGoogleMap = ({ className, showCamera = false }) => {
+	const dispatch = useDispatch();
 	const darkMode = useSelector((state) => state.app.darkMode);
+
+	const onMarkerClick = (camera) => {
+		dispatch(pushCamera(camera));
+	}
 
 	return (
 		<GoogleMap
-      mapContainerClassName={className}
 			zoom={15}
 			center={center}
+			mapContainerClassName="w-full h-full"
 			options={{
-				styles: darkMode ? darkModeStyles : [],
-			}}>
-			{children}
+				styles: darkMode
+					? [...darkModeStyles, ...defaultStyles]
+					: defaultStyles,
+			}}
+			>
+			{showCamera &&
+				cameras.map((camera) => (
+					<Marker
+						key={camera.id}
+						position={camera.position}
+						onClick={() => onMarkerClick(camera)}
+						icon="http://giaothong.hochiminhcity.gov.vn/images/camera_green.png"
+					/>
+				))}
 		</GoogleMap>
 	);
 };
+
+export default AppGoogleMap;

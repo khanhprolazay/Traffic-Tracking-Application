@@ -16,7 +16,7 @@ const getTimeString = () => {
 	return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
 };
 
-export const AppHeader = (props) => {
+const AppHeader = (props) => {
 	const dispatch = useDispatch();
 	const { collapsed, toggleCollapsed } = props;
 	const [time, setTime] = useState(getTimeString());
@@ -36,7 +36,7 @@ export const AppHeader = (props) => {
 		<Header className="px-6 shadow flex justify-between items-center">
 			<Button
 				type="link"
-				className="text-base w-auto text-left border-none focus:outline-none transition-colors"
+				className="text-base w-auto text-left border-none focus:outline-none transition-colors shadow-none"
 				onClick={toggleCollapsed}
 				icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
 			/>
@@ -56,3 +56,5 @@ export const AppHeader = (props) => {
 		</Header>
 	);
 };
+
+export default AppHeader;

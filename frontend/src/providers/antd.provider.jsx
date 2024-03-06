@@ -1,7 +1,7 @@
 import { ConfigProvider, theme } from "antd";
 import { useSelector } from "react-redux";
 
-export const AntdProvider = ({ children }) => {
+const AntdProvider = ({ children }) => {
 	const darkMode = useSelector((state) => state.app.darkMode);
 
 	return (
@@ -36,3 +36,5 @@ export const AntdProvider = ({ children }) => {
 		</ConfigProvider>
 	);
 };
+
+export default AntdProvider;
