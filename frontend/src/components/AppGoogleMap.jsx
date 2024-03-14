@@ -1,4 +1,4 @@
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, TrafficLayer } from "@react-google-maps/api";
 import { useDispatch, useSelector } from "react-redux";
 import cameras from "../mock/cameras.mock.json";
 import { pushCamera } from "../app/slices/app.slice";
@@ -119,7 +119,7 @@ const AppGoogleMap = ({ className, showCamera = false }) => {
 
 	const onMarkerClick = (camera) => {
 		dispatch(pushCamera(camera));
-	}
+	};
 
 	return (
 		<GoogleMap
@@ -130,8 +130,8 @@ const AppGoogleMap = ({ className, showCamera = false }) => {
 				styles: darkMode
 					? [...darkModeStyles, ...defaultStyles]
 					: defaultStyles,
-			}}
-			>
+			}}>
+			<TrafficLayer />
 			{showCamera &&
 				cameras.map((camera) => (
 					<Marker
