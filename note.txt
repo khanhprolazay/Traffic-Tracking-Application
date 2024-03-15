@@ -1,0 +1,14 @@
+1. Trang dashboard
+- Bao gồm: 
+   + Map
+   + Bảng: tên tuyến đường, số xe, tình trạng
+   + Công tắc để chuyển đổi luân phiên giữa Map với Bảng
+2. Trang chỉ hiển thị Map:
+- Bao gồm:
+ + 1 ô tìm kiếm
+ + Thanh sidebar để ẩn hiện các loại marker: trạm xe buýt, Biển hiệu,...
+ + Google Map 
+
+3. Trang thống kê phân tích:
+ + Bảng để hiển thị tuyến đường
+ + Bảng để hiển thị trạng thái của 1 tuyến đường (realmtime)
