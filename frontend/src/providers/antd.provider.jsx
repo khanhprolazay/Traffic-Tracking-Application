@@ -1,5 +1,6 @@
 import { ConfigProvider, theme } from "antd";
 import { useSelector } from "react-redux";
+import PropTypes from 'prop-types';
 
 const AntdProvider = ({ children }) => {
 	const darkMode = useSelector((state) => state.app.darkMode);
@@ -36,5 +37,9 @@ const AntdProvider = ({ children }) => {
 		</ConfigProvider>
 	);
 };
+
+AntdProvider.propTypes = {
+	children: PropTypes.any.isRequired,
+}
 
 export default AntdProvider;

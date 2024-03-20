@@ -1,24 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
 import AppHeader from "./AppHeader";
 import AppSidebar from "./AppSidebar";
 import AppCameraDrawler from "./AppCameraDrawler";
-const { Content, Footer } = Layout;
+import PropTypes from 'prop-types';
 
+const { Content, Footer } = Layout;
 const AppLayout = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const toggleCollapsed = () => setCollapsed(!collapsed);
-
 	return (
 		<Layout hasSider className="w-full">
-			<AppSidebar collapsed={collapsed}/>
+			<AppSidebar collapsed={collapsed} />
 			<AppCameraDrawler />
 			<Layout
-				className={`${
-					collapsed ? "ml-[80px]" : "ml-[200px]"
-				} transition-all min-h-screen`}>
-				<AppHeader collapsed={collapsed} toggleCollapsed={toggleCollapsed}/>
+				className={`${collapsed ? "ml-[80px]" : "ml-[200px]"
+					} transition-all min-h-screen`}>
+				<AppHeader collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
 				<Content>
 					<Outlet />
 				</Content>
@@ -29,5 +28,7 @@ const AppLayout = () => {
 		</Layout>
 	);
 };
-
+AppHeader.propTypes = {
+	toggleCollapsed: PropTypes.func.isRequired,
+};
 export default AppLayout;

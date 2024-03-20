@@ -1,25 +1,9 @@
-import { EyeOutlined, FilterOutlined } from "@ant-design/icons";
-import { Card, Tooltip } from "antd";
+import { Card, Typography } from "antd";
+import PropTypes from 'prop-types';
 
-const cardClassNames = {
-	header: "!border-b-0",
-	title: "text-base font-normal",
-	body: "!py-0 text-3xl",
-};
-
-const actions = [
-	{
-		icon: <FilterOutlined />,
-		label: "Lọc",
-	},
-	{
-		icon: <EyeOutlined />,
-		label: "Chi tiết",
-	},
-];
 
 const DashboardCard = (props) => {
-  const { title, status, content } = props;
+	const { title, status, content } = props;
 
 	function getColor(status) {
 		switch (status) {
@@ -35,20 +19,17 @@ const DashboardCard = (props) => {
 	}
 
 	return (
-		<Card classNames={cardClassNames} title={title}>
-			<span className={getColor(status)}>{content}</span>
-			<div className="w-full py-2 flex justify-around items-center border-t border-t-slate-200 mt-3">
-				<div className="flex gap-4">
-					{actions.map((action, key) => (
-						<Tooltip key={key} title={action.label}>
-							<div className="!text-base cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
-								{action.icon}
-							</div>
-						</Tooltip>
-					))}
-				</div>
-			</div>
+		<Card title={<span className="text-lg">{title}</span>} className="h-32">
+			<Typography className={`${getColor(status)} | text-3xl font-bold`}>{content}</Typography>
+			<div className="w-full py-2 flex justify-around items-center border-t border-t-slate-200 mt-2" />
+
 		</Card>
 	);
 };
+
+DashboardCard.propTypes = {
+	title: PropTypes.string.isRequired,
+	status: PropTypes.string.isRequired,
+	content: PropTypes.string.isRequired
+}
 export default DashboardCard;

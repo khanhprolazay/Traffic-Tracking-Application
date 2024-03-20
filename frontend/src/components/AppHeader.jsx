@@ -8,6 +8,7 @@ import {
 import { useState, useLayoutEffect } from "react";
 import { setDarkMode } from "../app/slices/app.slice";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from 'prop-types';
 
 const { Header } = Layout;
 
@@ -56,5 +57,10 @@ const AppHeader = (props) => {
 		</Header>
 	);
 };
+
+AppHeader.propTypes = {
+	collapsed: PropTypes.bool.isRequired,
+	toggleCollapsed: PropTypes.bool.isRequired
+}
 
 export default AppHeader;
