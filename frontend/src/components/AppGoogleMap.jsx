@@ -2,6 +2,7 @@ import { GoogleMap, Marker, TrafficLayer } from "@react-google-maps/api";
 import { useDispatch, useSelector } from "react-redux";
 import cameras from "../mock/cameras.mock.json";
 import { pushCamera } from "../app/slices/app.slice";
+import PropTypes from 'prop-types';
 
 const darkModeStyles = [
 	{ elementType: "geometry", stylers: [{ color: "#242f3e" }] },
@@ -113,7 +114,7 @@ const center = {
 	lng: 106.69798218614284,
 };
 
-const AppGoogleMap = ({ className, showCamera = false }) => {
+const AppGoogleMap = ({ showCamera = false }) => {
 	const dispatch = useDispatch();
 	const darkMode = useSelector((state) => state.app.darkMode);
 
@@ -130,6 +131,7 @@ const AppGoogleMap = ({ className, showCamera = false }) => {
 				styles: darkMode
 					? [...darkModeStyles, ...defaultStyles]
 					: defaultStyles,
+				mapTypeControl: false
 			}}>
 			<TrafficLayer />
 			{showCamera &&
@@ -144,5 +146,9 @@ const AppGoogleMap = ({ className, showCamera = false }) => {
 		</GoogleMap>
 	);
 };
+
+AppGoogleMap.propTypes = {
+	showCamera: PropTypes.bool.isRequired,
+}
 
 export default AppGoogleMap;

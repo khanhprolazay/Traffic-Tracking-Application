@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Camera from "./Camera";
 import { removeCamera, setOpenAppDrawer } from "../app/slices/app.slice";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import PropTypes from 'prop-types';
 
 const CameraItem = ({ id, name, dispatch, index, total }) => {
 	const onItemClick = () => dispatch(removeCamera(id));
@@ -52,5 +53,13 @@ const AppCameraDrawler = () => {
 		</Drawer>
 	);
 };
+
+CameraItem.propTypes = {
+	id: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	dispatch: PropTypes.any.isRequired,
+	index: PropTypes.number.isRequired,
+	total: PropTypes.number.isRequired,
+}
 
 export default AppCameraDrawler;
