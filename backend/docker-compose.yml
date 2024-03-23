@@ -4,21 +4,21 @@ services:
     image: warp10io/warp10:3.2.0-ubuntu
     ports:
       - 8080:8080
-      # - 8081:8081
+      - 8081:8081
     volumes:
       - ./volumes/warp10-data:/data
-  jobmanager:
-    image: flink:latest
-    ports:
-      - "8081:8081"
-    command: jobmanager
-    environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  # jobmanager:
+  #   image: flink:latest
+  #   ports:
+  #     - "8081:8081"
+  #   command: jobmanager
+  #   environment:
+  #     - JOB_MANAGER_RPC_ADDRESS=jobmanager
 
-  taskmanager:
-    image: flink:latest
-    depends_on:
-      - jobmanager
-    command: taskmanager
-    environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  # taskmanager:
+  #   image: flink:latest
+  #   depends_on:
+  #     - jobmanager
+  #   command: taskmanager
+  #   environment:
+  #     - JOB_MANAGER_RPC_ADDRESS=jobmanager
