@@ -19,10 +19,9 @@ const DashboardCard = (props) => {
 	}
 
 	return (
-		<Card title={<span className="text-lg">{title}</span>} className="h-32">
+		<Card title={<span className="text-base font-normal">{title}</span>} className="h-32">
 			<Typography className={`${getColor(status)} | text-3xl font-bold`}>{content}</Typography>
 			<div className="w-full py-2 flex justify-around items-center border-t border-t-slate-200 mt-2" />
-
 		</Card>
 	);
 };
@@ -30,6 +29,6 @@ const DashboardCard = (props) => {
 DashboardCard.propTypes = {
 	title: PropTypes.string.isRequired,
 	status: PropTypes.string.isRequired,
-	content: PropTypes.string.isRequired
+	content: PropTypes.number.isRequired
 }
 export default DashboardCard;
