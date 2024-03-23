@@ -225,7 +225,7 @@ const AppGoogleMap = ({ showCamera = false, traffic, station, poi, showSearch = 
 							<SearchOutlined className="absolute top-0 right-3 h-9 rounded-none text-lg bg-none " />
 							<Button
 								onClick={toCoordinates}
-								className="absolute right-[10px] top-[370px] rounded-none border-none "
+								className="absolute right-[10px] top-[400px] rounded-none border-none "
 								style={{ width: 40, height: 40, boxShadow: '0 2px 4px rgba(0,0,0,0.2)', background: 'white' }}
 								icon={<AimOutlined style={{ fontSize: 25 }} className="text-black hover:text-blue-600" />}
 							/>
