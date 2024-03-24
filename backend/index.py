@@ -1,10 +1,14 @@
 import schedule
 import time
+import random
+from services.warp10 import write_data
+
 
 def job():
-  print("I'm working...")
-
-schedule.every(10).seconds.do(job)
+  number = random.randint(0, 100)
+  write_data(number)
+  
+schedule.every(1).seconds.do(job)
 
 while True:
   schedule.run_pending()
