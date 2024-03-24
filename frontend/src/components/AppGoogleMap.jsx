@@ -1,4 +1,4 @@
-import { GoogleMap, LoadScriptNext, Marker, StandaloneSearchBox, TrafficLayer, TransitLayer } from "@react-google-maps/api";
+import { GoogleMap, Marker, StandaloneSearchBox, TrafficLayer, TransitLayer } from "@react-google-maps/api";
 import { useDispatch, useSelector } from "react-redux";
 import cameras from "../mock/cameras.mock.json";
 import { pushCamera } from "../app/slices/app.slice";
@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import iconLocationSearch from "../assets/images/locationSearch.png";
 import { SearchOutlined, AimOutlined } from "@ant-design/icons";
 
-import { GOOGLE_MAPS_API_KEY, LIBRARIES } from '../config/index'
+// import { GOOGLE_MAPS_API_KEY, LIBRARIES } from '../config/index'
 import { Button, Col, Row } from "antd";
 
 const darkModeStyles = [
@@ -161,81 +161,75 @@ const AppGoogleMap = ({ showCamera = false, traffic, station, poi, showSearch = 
 		})
 		setZoom(17)
 	}
+	
 
 	return (
-		<LoadScriptNext
-			googleMapsApiKey={GOOGLE_MAPS_API_KEY}
-			libraries={LIBRARIES}
-		>
-			<GoogleMap
-				zoom={zoom}
-				center={positionSearch}
-				mapContainerClassName="w-full h-full border"
-				options={{
-					styles: darkMode
-						? [...darkModeStyles, ...defaultStyles]
-						: defaultStyles,
-					mapTypeControl: false,
-					fullscreenControl: false,
-				}}>
+		<GoogleMap
+			zoom={zoom}
+			center={positionSearch}
+			mapContainerClassName="w-full h-full border"
+			options={{
+				styles: darkMode
+					? [...darkModeStyles, ...defaultStyles]
+					: defaultStyles,
+				mapTypeControl: false,
+				fullscreenControl: false,
+			}}>
 
-				{station && <TransitLayer />}
-				{traffic && <TrafficLayer />}
-				{showCamera &&
-					cameras.map((camera) => (
-						<Marker
-							key={camera.id}
-							position={camera.position}
-							onClick={() => onMarkerClick(camera)}
-							icon="http://giaothong.hochiminhcity.gov.vn/images/camera_green.png"
-						/>
-					))}
-
-				{positionSearch != center &&
+			{station && <TransitLayer />}
+			{traffic && <TrafficLayer />}
+			{showCamera &&
+				cameras.map((camera) => (
 					<Marker
-						position={{
-							lat: positionSearch.lat,
-							lng: positionSearch.lng
-						}}
-						icon={iconLocationSearch}
+						key={camera.id}
+						position={camera.position}
+						onClick={() => onMarkerClick(camera)}
+						icon="http://giaothong.hochiminhcity.gov.vn/images/camera_green.png"
 					/>
-				}
+				))}
 
-				{showSearch &&
-					<Row justify="center" style={{ margin: 0 }}>
-						<Col style={{ padding: '0px' }} className="w-full">
-							<StandaloneSearchBox
-								onLoad={handleSearchBoxLoad}
-								onPlacesChanged={handlePlacesChanged}
-							>
-								<input
-									type="text"
-									placeholder="Nhập địa điểm muốn tìm kiếm..."
-									onKeyDown={handleEnter}
-									style={{
-										boxSizing: 'border-box',
-										outline: 'none',
-										textOverflow: 'ellipses',
-										background: darkMode ? '#EEEEEE' : '#D3D3D3',
-										color: 'black',
-									}}
-									className="bg-gray-300 p-[15px] text-sm font-n h-9 w-full border hover:border-blue-600"
-								/>
-							</StandaloneSearchBox>
-							<SearchOutlined className="absolute top-0 right-3 h-9 rounded-none text-lg bg-none " />
-							<Button
-								onClick={toCoordinates}
-								className="absolute right-[10px] top-[400px] rounded-none border-none "
-								style={{ width: 40, height: 40, boxShadow: '0 2px 4px rgba(0,0,0,0.2)', background: 'white' }}
-								icon={<AimOutlined style={{ fontSize: 25 }} className="text-black hover:text-blue-600" />}
+			{positionSearch != center &&
+				<Marker
+					position={{
+						lat: positionSearch.lat,
+						lng: positionSearch.lng
+					}}
+					icon={iconLocationSearch}
+				/>
+			}
+
+			{showSearch &&
+				<Row justify="center" style={{ margin: 0 }}>
+					<Col style={{ padding: '0px' }} className="w-full">
+						<StandaloneSearchBox
+							onLoad={handleSearchBoxLoad}
+							onPlacesChanged={handlePlacesChanged}
+						>
+							<input
+								type="text"
+								placeholder="Nhập địa điểm muốn tìm kiếm..."
+								onKeyDown={handleEnter}
+								style={{
+									boxSizing: 'border-box',
+									outline: 'none',
+									textOverflow: 'ellipses',
+									background: darkMode ? '#EEEEEE' : '#D3D3D3',
+									color: 'black',
+								}}
+								className="bg-gray-300 p-[15px] text-sm font-n h-9 w-full border hover:border-blue-600"
 							/>
-						</Col>
-					</Row>
-				}
-
-
-			</GoogleMap>
-		</LoadScriptNext>
+						</StandaloneSearchBox>
+						<SearchOutlined className="absolute top-0 right-3 h-9 rounded-none text-lg bg-none " />
+						<Button
+							onClick={toCoordinates}
+							className="absolute right-[10px] top-[400px] rounded-none border-none "
+							style={{ width: 40, height: 40, boxShadow: '0 2px 4px rgba(0,0,0,0.2)', background: 'white' }}
+							icon={<AimOutlined style={{ fontSize: 25 }} className="text-black hover:text-blue-600" />}
+						/>
+					</Col>
+				</Row>
+			}
+		</GoogleMap>
 	);
 };
 

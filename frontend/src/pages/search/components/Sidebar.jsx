@@ -1,4 +1,4 @@
-import { Row, Col, Checkbox, Typography, Image, ConfigProvider } from "antd";
+import { Row, Col, Checkbox, Typography, Image } from "antd";
 import { useState } from "react";
 import PropTypes from 'prop-types';
 import cameraIcon from "../../../assets/images/camera.png";
@@ -34,48 +34,33 @@ const Siderbar = ({ onChangeStatus, sidebarSearchLocal }) => {
     onChangeStatus(camera, traffic, station, poi)   // export giá trị của 4 biến về index.js
 
     return (
-        <ConfigProvider
-            theme={{
-                components: {
-                    Checkbox: {
-                        lineWidth: 2,
-                        colorBorder: 'gray',
-                        borderRadiusSM: 2,
-                        controlInteractiveSize: 16,
-                        colorPrimaryHover: false,
-                        colorPrimary: '#0C8A26',
-                    }
-                },
-            }}
-        >
-            <Col span={6} style={{ padding: 0 }}>
-                <Row onClick={() => hanldeStatus('camera')} className="px-4 py-3 hover:bg-slate-400 relative hover:cursor-pointer">
-                    <Image preview={false} src={cameraIcon} />
-                    <Typography className="pl-1 font-normal text-base select-none">Camera</Typography>
-                    <Checkbox className="absolute top-1/2 transform -translate-y-1/2 right-4" checked={camera} />
-                </Row>
+        <Col span={6} style={{ padding: 0 }}>
+            <Row onClick={() => hanldeStatus('camera')} className="px-4 py-3 hover:bg-slate-400 relative hover:cursor-pointer">
+                <Image preview={false} src={cameraIcon} />
+                <Typography className="pl-1 font-normal text-base select-none">Camera</Typography>
+                <Checkbox className="absolute top-1/2 transform -translate-y-1/2 right-4" checked={camera} />
+            </Row>
 
-                <Row onClick={() => hanldeStatus('traffic')} className="px-4 py-3 hover:bg-slate-400 relative hover:cursor-pointer">
-                    <Image preview={false} src={trafficIcon} />
-                    <Typography className="pl-1 font-normal text-base select-none">Tình trạng giao thông</Typography>
-                    <Checkbox className="absolute top-1/2 transform -translate-y-1/2 right-4" checked={traffic} />
-                </Row>
+            <Row onClick={() => hanldeStatus('traffic')} className="px-4 py-3 hover:bg-slate-400 relative hover:cursor-pointer">
+                <Image preview={false} src={trafficIcon} />
+                <Typography className="pl-1 font-normal text-base select-none">Tình trạng giao thông</Typography>
+                <Checkbox className="absolute top-1/2 transform -translate-y-1/2 right-4" checked={traffic} />
+            </Row>
 
-                <Row onClick={() => hanldeStatus('station')} className="px-4 py-3 hover:bg-slate-400 relative hover:cursor-pointer">
-                    <Image preview={false} src={stationIcon} />
-                    <Typography className="pl-1 font-normal text-base select-none">Trạm giao thông công cộng</Typography>
-                    <Checkbox className="absolute top-1/2 transform -translate-y-1/2 right-4" checked={station} />
-                </Row>
+            <Row onClick={() => hanldeStatus('station')} className="px-4 py-3 hover:bg-slate-400 relative hover:cursor-pointer">
+                <Image preview={false} src={stationIcon} />
+                <Typography className="pl-1 font-normal text-base select-none">Trạm giao thông công cộng</Typography>
+                <Checkbox className="absolute top-1/2 transform -translate-y-1/2 right-4" checked={station} />
+            </Row>
 
-                <Row onClick={() => hanldeStatus('poi')} className="px-4 py-3 hover:bg-slate-400 relative hover:cursor-pointer">
-                    <Image preview={false} src={poiIcon} />
-                    <Typography className="pl-1 font-normal text-base select-none">Địa điểm quan trọng</Typography>
-                    <Checkbox className="absolute top-1/2 transform -translate-y-1/2 right-4" checked={poi} />
-                </Row>
+            <Row onClick={() => hanldeStatus('poi')} className="px-4 py-3 hover:bg-slate-400 relative hover:cursor-pointer">
+                <Image preview={false} src={poiIcon} />
+                <Typography className="pl-1 font-normal text-base select-none">Địa điểm quan trọng</Typography>
+                <Checkbox className="absolute top-1/2 transform -translate-y-1/2 right-4" checked={poi} />
+            </Row>
 
-                {/* <Row>Biển báo tốc độ</Row> */}
-            </Col>
-        </ConfigProvider>
+            {/* <Row>Biển báo tốc độ</Row> */}
+        </Col>
     )
 }
 
