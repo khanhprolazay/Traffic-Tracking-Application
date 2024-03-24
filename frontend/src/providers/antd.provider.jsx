@@ -38,8 +38,4 @@ const AntdProvider = ({ children }) => {
 	);
 };
 
-AntdProvider.propTypes = {
-	children: PropTypes.any.isRequired,
-}
-
 export default AntdProvider;

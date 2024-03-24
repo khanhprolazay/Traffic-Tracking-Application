@@ -4,21 +4,23 @@ import App from "./App.jsx";
 import "./index.css";
 import { store } from "./app/store.js";
 import { Provider } from "react-redux";
-import AntdProvider from "./providers/antd.provider";
-import GoogleMapProvider from "./providers/google-map.provider";
+import GoogleMapProvider from "./providers/google-map.provider.jsx";
+import AntdProvider from "./providers/antd.provider.jsx";
 
-function AppContext({ chilren }) {
+function AppContext({ children }) {
 	return (
-		<Provider store={store}>
-			<GoogleMapProvider>
-				<AntdProvider>{chilren}</AntdProvider>
-			</GoogleMapProvider>
-		</Provider>
+		<GoogleMapProvider>
+			<AntdProvider>
+				{children}
+			</AntdProvider>
+		</GoogleMapProvider>
 	);
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<AppContext>
-		<App />
-	</AppContext>
+	<Provider store={store}>
+		<AppContext>
+			<App />
+		</AppContext>
+	</Provider>
 );
