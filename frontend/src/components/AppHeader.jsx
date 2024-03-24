@@ -17,6 +17,8 @@ const getTimeString = () => {
 	return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
 };
 
+localStorage.setItem('sidebarSearch', JSON.stringify([false, false, false, false, false])) //setStatus cho sidebar của SearchPage
+
 const AppHeader = (props) => {
 	const dispatch = useDispatch();
 	const { collapsed, toggleCollapsed } = props;

@@ -76,7 +76,8 @@ export const HomePage = () => {
 							checkedChildren={<TableOutlined />}
 							checked={!defaultSwitch}
 							onChange={() => { showTable(!defaultSwitch); setType('all') }} />
-						{defaultSwitch ? <AppGoogleMap showCamera={true} /> : <TableStreet data={data} typeData={typeData} />}
+						{defaultSwitch ? <AppGoogleMap showCamera={true} traffic={true} station={false} poi={false} showSearch={false}/>
+							: <TableStreet data={data} typeData={typeData} />}
 					</Col>
 
 					<Col span={8} className="h-full flex flex-col gap-4 no-scroll-bar overflow-auto">
