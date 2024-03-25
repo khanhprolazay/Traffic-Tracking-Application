@@ -95,3 +95,9 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
+.ant-table-thead {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}

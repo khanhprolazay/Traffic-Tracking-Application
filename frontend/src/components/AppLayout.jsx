@@ -16,7 +16,7 @@ const AppLayout = () => {
 			<AppCameraDrawler />
 			<Layout
 				className={`${collapsed ? "ml-[80px]" : "ml-[200px]"
-					} transition-all min-h-screen`}>
+					} transition-all min-h-screen max-h-screen`}>
 				<AppHeader collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
 				<Content>
 					<Outlet />
