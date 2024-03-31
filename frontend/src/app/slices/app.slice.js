@@ -7,6 +7,10 @@ const initialState = {
   openCamerasDrawler: false,
 };
 
+if (initialState.darkMode) {
+	document.documentElement.classList.add("dark");
+}
+
 const appSlice = createSlice({
 	name: "app",
 	initialState,
@@ -14,6 +18,12 @@ const appSlice = createSlice({
 		setDarkMode: (state, action) => {
 			state.darkMode = action.payload;
 			localStorage.setItem("darkMode", action.payload);
+
+			if (action.payload) {
+				document.documentElement.classList.add("dark");
+			} else {
+				document.documentElement.classList.remove("dark");
+			}
 		},
 
 		toggleTime: (state, _) => {

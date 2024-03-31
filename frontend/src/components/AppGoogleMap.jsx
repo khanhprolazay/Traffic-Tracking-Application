@@ -8,7 +8,7 @@ import iconLocationSearch from "../assets/images/locationSearch.png";
 import { SearchOutlined, AimOutlined } from "@ant-design/icons";
 
 // import { GOOGLE_MAPS_API_KEY, LIBRARIES } from '../config/index'
-import { Button, Col, Row } from "antd";
+import { Button, Col, Input, Row } from "antd";
 
 const darkModeStyles = [
 	{
@@ -167,7 +167,7 @@ const AppGoogleMap = ({ showCamera = false, traffic, station, poi, showSearch = 
 		<GoogleMap
 			zoom={zoom}
 			center={positionSearch}
-			mapContainerClassName="w-full h-full border"
+			mapContainerClassName="w-full h-full"
 			options={{
 				styles: darkMode
 					? [...darkModeStyles, ...defaultStyles]
@@ -199,32 +199,25 @@ const AppGoogleMap = ({ showCamera = false, traffic, station, poi, showSearch = 
 			}
 
 			{showSearch &&
-				<Row justify="center" style={{ margin: 0 }}>
-					<Col style={{ padding: '0px' }} className="w-full">
+				<Row justify="center" className="m-0">
+					<Col className="w-full p-0">
 						<StandaloneSearchBox
 							onLoad={handleSearchBoxLoad}
 							onPlacesChanged={handlePlacesChanged}
 						>
-							<input
+							<Input
 								type="text"
 								placeholder="Nhập địa điểm muốn tìm kiếm..."
 								onKeyDown={handleEnter}
-								style={{
-									boxSizing: 'border-box',
-									outline: 'none',
-									textOverflow: 'ellipses',
-									background: darkMode ? '#EEEEEE' : '#D3D3D3',
-									color: 'black',
-								}}
-								className="bg-gray-300 p-[15px] text-sm font-n h-9 w-full border hover:border-blue-600"
+								variant="outlined"
+								className="rounded-none text-sm h-9 w-full "
 							/>
 						</StandaloneSearchBox>
 						<SearchOutlined className="absolute top-0 right-3 h-9 rounded-none text-lg bg-none " />
 						<Button
 							onClick={toCoordinates}
-							className="absolute right-[10px] top-[370px] rounded-none border-none "
-							style={{ width: 40, height: 40, boxShadow: '0 2px 4px rgba(0,0,0,0.2)', background: 'white' }}
-							icon={<AimOutlined style={{ fontSize: 25 }} className="text-black hover:text-blue-600" />}
+							className="absolute right-[10px] top-[370px] rounded-none border-none bg-white !shadow-sm !w-10 !h-10"
+							icon={<AimOutlined className="!text-2xl text-black hover:text-blue-600" />}
 						/>
 					</Col>
 				</Row>
