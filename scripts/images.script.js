@@ -11,6 +11,7 @@ function getURL(cameraID) {
 }
 
 const dest = join(__dirname, "images");
+const currentTimeStamp = new Date().getTime();
 
 function download(uri, camera) {
 	return request({ url: uri, encoding: null }, function (error, response, body) {
@@ -19,7 +20,7 @@ function download(uri, camera) {
 			return;
 		}
 
-		let fileName = join(dest, sanitize(basename(removeVI(camera.name))));
+		let fileName = join(dest, `${currentTimeStamp}_${sanitize(basename(removeVI(camera.name)))}`);
 		if (!extname(fileName)) {
 			const contentType = response.headers["content-type"];
 			const ext = extension(contentType);
@@ -43,3 +44,4 @@ function download(uri, camera) {
 cameras.forEach((camera) => {
 	download(getURL(camera.id), camera);
 });
+
