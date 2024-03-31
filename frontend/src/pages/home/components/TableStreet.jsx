@@ -23,23 +23,20 @@ const TableStreet = ({ data, typeData }) => {
                 ? data.filter(item => item.status.toUpperCase() === "KẸT XE")
                 : data;
 
-    // console.log(typeData)
-    // console.log(dataHandle)
-
     return (
-        <Table dataSource={dataHandle} pagination={false} scroll={{ y: 320 }}>
-            <Column title={<Typography className='text-center text-base'>Tên tuyến đường</Typography>} dataIndex="name" key="name" className='text-sm' width={300} />
-            <ColumnGroup title="Số lượng xe lưu thông" className='text-base'>
-                <Column title="Xe Máy" dataIndex="bike" key="bike" width={65} className='text-sm' />
-                <Column title="Xe Ôtô" dataIndex="oto" key="oto" width={65} className='text-sm' />
-                <Column title="Xe Bus" dataIndex="bus" key="bus" width={65} className='text-sm' />
-                <Column title="Xe Tải" dataIndex="truck" key="truck" width={65} className='text-sm' />
+        <Table rootClassName='h-full overflow-auto relative' dataSource={dataHandle} pagination={false}>
+            <Column title={<Typography className='text-center text-xs font-normal'>Tên tuyến đường</Typography>} dataIndex="name" key="name" className='text-xs' width={300} />
+            <ColumnGroup title="Số lượng xe lưu thông" className='text-xs !font-normal' >
+                <Column align='center' title="Xe Máy" dataIndex="bike" key="bike" width={65} className='text-xs !font-normal' />
+                <Column align='center' title="Xe Ôtô" dataIndex="oto" key="oto" width={65} className='text-xs !font-normal' />
+                <Column align='center' title="Xe Bus" dataIndex="bus" key="bus" width={65} className='text-xs !font-normal' />
+                <Column align='center' title="Xe Tải" dataIndex="truck" key="truck" width={65} className='text-xs !font-normal' />
             </ColumnGroup>
             <Column
                 align='center'
                 width={100}
                 className='text-sm'
-                title={<Typography className='text-center text-base'>Tình trạng</Typography>}
+                title={<Typography className='text-center text-xs font-normal'>Tình trạng</Typography>}
                 dataIndex="status"
                 key="status"
                 render={(status) => {
@@ -55,7 +52,7 @@ const TableStreet = ({ data, typeData }) => {
                 align='center'
                 width={110}
                 className='text-sm'
-                title={<Typography className='text-center text-base'>Xem trực tiếp</Typography>}
+                title={<Typography className='text-center text-xs font-normal'>Xem trực tiếp</Typography>}
                 key="id"
                 render={(id) => (
                     <VideoCameraOutlined onClick={() => onMarkerClick(id)} />

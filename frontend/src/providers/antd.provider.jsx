@@ -8,6 +8,7 @@ const AntdProvider = ({ children }) => {
 	return (
 		<ConfigProvider
 			theme={{
+				hashed: false,
 				algorithm: darkMode
 					? [theme.darkAlgorithm, theme.compactAlgorithm]
 					: theme.compactAlgorithm,
@@ -31,15 +32,24 @@ const AntdProvider = ({ children }) => {
 					Switch: {
 						algorithm: true,
 					},
+					Checkbox: {
+						lineWidth: 2,
+						colorBorder: 'gray',
+						borderRadiusSM: 2,
+						controlInteractiveSize: 16,
+						colorPrimaryHover: false,
+						colorPrimary: '#0C8A26',
+					},
+					Table: {
+						borderRadius: 0,
+						algorithm: true,
+						
+					},
 				},
 			}}>
 			{children}
 		</ConfigProvider>
 	);
 };
-
-AntdProvider.propTypes = {
-	children: PropTypes.any.isRequired,
-}
 
 export default AntdProvider;

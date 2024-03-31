@@ -37,7 +37,7 @@ const AppCameraDrawler = () => {
 
 	return (
 		<Drawer
-			zIndex={1}
+			zIndex={10}
 			onClose={onClose}
 			title="Thông tin tuyến đường"
 			open={openCamerasDrawler}>
