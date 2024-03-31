@@ -54,7 +54,7 @@ export const HomePage = () => {
 			</Row>
 
 			<Row gutter={24} className="h-[calc(100vh-297px)]">
-				<Col span={16} className="h-full max-h-full z-[2] relative">
+				<Col span={16} className="h-full max-h-full z-20 relative">
 					<Switch
 						className="absolute ml-2 mt-2 z-10"
 						rootClassName="bg-slate-400"
