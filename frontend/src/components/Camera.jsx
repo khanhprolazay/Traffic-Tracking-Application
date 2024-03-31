@@ -7,12 +7,10 @@ import PropTypes from 'prop-types';
 const Camera = ({ id }) => {
 	const { time } = useSelector((state) => state.app);
 	return (
-		<div>
 			<Image
 				rootClassName="w-full"
 				src={`http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=${id}&t=${time}`}
 			/>
-		</div>
 	);
 };
 
