@@ -1,18 +1,17 @@
 import { Col, Row, Switch } from "antd";
-import DashboardCard from "./components/DashboardCard";
-import AppGoogleMap from "../../components/AppGoogleMap";
-import Camera from "../../components/Camera";
-import TableStreet from "./components/TableStreet";
-import { TableOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import data from "../../mock/data.street.mock.json";
+import DashboardCard from "./components/DashboardCard";
+import { TableOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import TableStreet from "../../components/TableStreet";
+import Camera from "../../components/Camera";
+import AppGoogleMap from "../../components/AppGoogleMap";
 
-export const HomePage = () => {
-	const [defaultSwitch, setSwitch] = useState(true);
-	const [typeData, setType] = useState("primary");
+export default function Home() {
+	const [isMapView, setIsMapView] = useState(true);
+	const [type, setType] = useState("primary");
 
 	const handleChangeTable = (status, type) => {
-		setSwitch(status);
+		setIsMapView(status);
 		setType(type);
 	};
 
@@ -60,13 +59,13 @@ export const HomePage = () => {
 						rootClassName="bg-slate-400"
 						unCheckedChildren={<VideoCameraOutlined />}
 						checkedChildren={<TableOutlined />}
-						checked={!defaultSwitch}
+						checked={!isMapView}
 						onChange={() => {
-							setSwitch(!defaultSwitch);
+							setIsMapView(state => !state);
 							setType("primary");
 						}}
 					/>
-					{defaultSwitch ? (
+					{isMapView ? (
 						<AppGoogleMap
 							showCamera={true}
 							traffic={true}
@@ -75,7 +74,7 @@ export const HomePage = () => {
 							showSearch={false}
 						/>
 					) : (
-						<TableStreet data={data} typeData={typeData} />
+						<TableStreet type={type} />
 					)}
 				</Col>
 
@@ -89,4 +88,4 @@ export const HomePage = () => {
 			</Row>
 		</div>
 	);
-};
+}

@@ -1,40 +1,23 @@
 import { HashRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/AppLayout";
-import { HomePage } from "./pages/home";
-import { SearchPage } from "./pages/search";
-import { StatisticPage } from "./pages/statistic";
-import { toggleTime } from "./app/slices/app.slice";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import HomePage from "./views/home";
+import SearchPage from "./views/search";
 
-function App() {
-	const dispatch = useDispatch();
+import StreetListPage from "./views/street/list";
+import StreetDetailPage from "./views/street/detail";
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			dispatch(toggleTime());
-		}, 12000);
-		return () => clearInterval(interval);
-	}, []);
-
+export default function App() {
 	return (
 		<HashRouter>
 			<Routes>
 				<Route path="/" element={<AppLayout />}>
 					<Route index element={<HomePage />} />
+					<Route path="search" element={<SearchPage />} />
+					<Route path="street" element={<StreetListPage />} />
+					<Route path="street/:id" element={<StreetDetailPage />} />
 					<Route path="*" element={<HomePage />} />
-				</Route>
-
-				<Route path="/search" element={<AppLayout />}>
-					<Route index element={<SearchPage />} />
-				</Route>
-
-				<Route path="/statistic" element={<AppLayout />}>
-					<Route index element={<StatisticPage />} />
 				</Route>
 			</Routes>
 		</HashRouter>
 	);
 }
-
-export default App;

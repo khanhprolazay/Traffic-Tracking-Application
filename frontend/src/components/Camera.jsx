@@ -1,11 +1,9 @@
 import { Image } from "antd";
-// import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
-
+import { useCameraStore } from "../stores";
 
 const Camera = ({ id }) => {
-	const { time } = useSelector((state) => state.app);
+	const { time } = useCameraStore();
 	return (
 			<Image
 				rootClassName="w-full"

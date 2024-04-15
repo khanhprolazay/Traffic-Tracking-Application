@@ -101,3 +101,7 @@ body {
 	top: 0;
 	z-index: 1;
 }
+
+.ant-card .ant-card-head-title {
+  font-weight: 400;
+}

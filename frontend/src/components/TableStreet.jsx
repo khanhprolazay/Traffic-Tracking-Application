@@ -1,30 +1,33 @@
 import { Table, Tag, Typography } from 'antd';
 const { Column } = Table;
 import { VideoCameraOutlined } from '@ant-design/icons'
-import { useDispatch } from "react-redux";
-import { pushCamera } from '../../../app/slices/app.slice';
 import ColumnGroup from 'antd/es/table/ColumnGroup';
-import PropTypes from 'prop-types';
+import { useCameraStore } from '../stores';
+import data from "../mock/data.street.mock.json";
 
+const TableStreet = ({ type = "primary" }) => {
 
-const TableStreet = ({ data, typeData }) => {
+    const { pushCamera } = useCameraStore();
+    const onClick = (id) => pushCamera(id);
 
-    const dispatch = useDispatch();
-
-    const onMarkerClick = (camera) => {
-        dispatch(pushCamera(camera));
-    };
-
-    const dataHandle = typeData.toUpperCase() === 'SUCCESS'
-        ? data.filter(item => item.status.toUpperCase() === "THÔNG THOÁNG")
-        : typeData.toUpperCase() === 'WARNING'
-            ? data.filter(item => item.status.toUpperCase() === "ĐÔNG ĐÚC")
-            : typeData.toUpperCase() === 'ERROR'
-                ? data.filter(item => item.status.toUpperCase() === "KẸT XE")
-                : data;
+    let dataSource;
+    switch (type.toUpperCase()) {
+        case 'SUCCESS':
+            dataSource = data.filter(item => item.status.toUpperCase() === "THÔNG THOÁNG");
+            break;
+        case 'WARNING':
+            dataSource = data.filter(item => item.status.toUpperCase() === "ĐÔNG ĐÚC");
+            break;
+        case 'ERROR':
+            dataSource = data.filter(item => item.status.toUpperCase() === "KẸT XE");
+            break;
+        default:
+            dataSource = data;
+            break;
+    }
 
     return (
-        <Table rootClassName='h-full overflow-auto relative' dataSource={dataHandle} pagination={false}>
+        <Table rootClassName='h-full overflow-auto relative' dataSource={dataSource} pagination={false}>
             <Column title={<Typography className='text-center text-xs font-normal'>Tên tuyến đường</Typography>} dataIndex="name" key="name" className='text-xs' width={300} />
             <ColumnGroup title="Số lượng xe lưu thông" className='text-xs !font-normal' >
                 <Column align='center' title="Xe Máy" dataIndex="bike" key="bike" width={65} className='text-xs !font-normal' />
@@ -40,10 +43,11 @@ const TableStreet = ({ data, typeData }) => {
                 dataIndex="status"
                 key="status"
                 render={(status) => {
-                    let color = status.toUpperCase() === 'THÔNG THOÁNG' ? '#52c41a' : status.toUpperCase() === 'ĐÔNG ĐÚC' ? '#faad14' : '#ff4d4f';
+                    const upper = status.toUpperCase();
+                    let color = upper === 'THÔNG THOÁNG' ? '#52c41a' : upper === 'ĐÔNG ĐÚC' ? '#faad14' : '#ff4d4f';
                     return (
                         <Tag color={color} key={status} className='font-semibold'>
-                            {status.toUpperCase()}
+                            {upper}
                         </Tag>
                     )
                 }}
@@ -55,16 +59,11 @@ const TableStreet = ({ data, typeData }) => {
                 title={<Typography className='text-center text-xs font-normal'>Xem trực tiếp</Typography>}
                 key="id"
                 render={(id) => (
-                    <VideoCameraOutlined onClick={() => onMarkerClick(id)} />
+                    <VideoCameraOutlined onClick={() => onClick(id)} />
                 )}
             />
         </Table>
     )
-}
-
-TableStreet.propTypes = {
-    data: PropTypes.any.isRequired,
-    typeData: PropTypes.string.isRequired
 }
 
 export default TableStreet;

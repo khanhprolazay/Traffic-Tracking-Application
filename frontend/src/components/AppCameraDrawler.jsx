@@ -1,12 +1,12 @@
 import { Button, Descriptions, Divider, Drawer } from "antd";
-import { useDispatch, useSelector } from "react-redux";
 import Camera from "./Camera";
-import { removeCamera, setOpenAppDrawer } from "../app/slices/app.slice";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { useCameraStore } from "../stores";
 
-const CameraItem = ({ id, name, dispatch, index, total }) => {
-	const onItemClick = () => dispatch(removeCamera(id));
+const CameraItem = ({ id, name, index, total }) => {
+	const { removeCamera } = useCameraStore();
+	const onItemClick = () => removeCamera(id);
 
 	return (
 		<div className="relative">
@@ -27,13 +27,8 @@ const CameraItem = ({ id, name, dispatch, index, total }) => {
 };
 
 const AppCameraDrawler = () => {
-	const dispatch = useDispatch();
-	const cameras = useSelector((state) => state.app.cameras);
-	const openCamerasDrawler = useSelector(
-		(state) => state.app.openCamerasDrawler
-	);
-
-	const onClose = () => dispatch(setOpenAppDrawer(false));
+	const { cameras, setOpenAppDrawer, openCamerasDrawler } = useCameraStore();
+	const onClose = () => setOpenAppDrawer(false);
 
 	return (
 		<Drawer
@@ -44,7 +39,6 @@ const AppCameraDrawler = () => {
 			{cameras.map((camera, index) => (
 				<CameraItem
 					key={camera.id}
-					dispatch={dispatch}
 					index={index}
 					total={cameras.length}
 					{...camera}
@@ -57,9 +51,8 @@ const AppCameraDrawler = () => {
 CameraItem.propTypes = {
 	id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
-	dispatch: PropTypes.any.isRequired,
 	index: PropTypes.number.isRequired,
 	total: PropTypes.number.isRequired,
-}
+};
 
 export default AppCameraDrawler;

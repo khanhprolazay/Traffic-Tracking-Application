@@ -1,13 +1,14 @@
 import { ConfigProvider, theme } from "antd";
-import { useSelector } from "react-redux";
-import PropTypes from 'prop-types';
+import { useThemeStore } from "../stores"
+import enUS from 'antd/lib/locale/en_US';
 
-const AntdProvider = ({ children }) => {
-	const darkMode = useSelector((state) => state.app.darkMode);
+export default function ThemeProvider({ children }) {
+	const darkMode = useThemeStore((state) => state.darkMode);
 
 	return (
 		<ConfigProvider
 			theme={{
+				locale: {enUS},
 				hashed: false,
 				algorithm: darkMode
 					? [theme.darkAlgorithm, theme.compactAlgorithm]
@@ -16,6 +17,7 @@ const AntdProvider = ({ children }) => {
 					Card: {
 						borderRadius: "0px",
 						algorithm: true,
+						headerFontSize: 14,
 					},
 					Layout: {
 						headerBg: !darkMode && "#fff",
@@ -34,22 +36,19 @@ const AntdProvider = ({ children }) => {
 					},
 					Checkbox: {
 						lineWidth: 2,
-						colorBorder: 'gray',
+						colorBorder: "gray",
 						borderRadiusSM: 2,
 						controlInteractiveSize: 16,
 						colorPrimaryHover: false,
-						colorPrimary: '#0C8A26',
+						colorPrimary: "#0C8A26",
 					},
 					Table: {
 						borderRadius: 0,
 						algorithm: true,
-						
 					},
 				},
 			}}>
 			{children}
 		</ConfigProvider>
 	);
-};
-
-export default AntdProvider;
+}

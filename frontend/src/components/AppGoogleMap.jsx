@@ -1,19 +1,22 @@
-import { GoogleMap, Marker, StandaloneSearchBox, TrafficLayer, TransitLayer } from "@react-google-maps/api";
-import { useDispatch, useSelector } from "react-redux";
+import {
+	GoogleMap,
+	Marker,
+	StandaloneSearchBox,
+	TrafficLayer,
+	TransitLayer,
+} from "@react-google-maps/api";
 import cameras from "../mock/cameras.mock.json";
-import { pushCamera } from "../app/slices/app.slice";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useRef, useState } from "react";
-import iconLocationSearch from "../assets/images/locationSearch.png";
+import iconLocationSearch from "/images/locationSearch.png";
 import { SearchOutlined, AimOutlined } from "@ant-design/icons";
-
-// import { GOOGLE_MAPS_API_KEY, LIBRARIES } from '../config/index'
 import { Button, Col, Input, Row } from "antd";
+import { useCameraStore, useThemeStore } from "../stores";
 
 const darkModeStyles = [
 	{
 		elementType: "geometry",
-		stylers: [{ color: "#242f3e" }]
+		stylers: [{ color: "#242f3e" }],
 	},
 	{
 		elementType: "labels.text.stroke",
@@ -100,7 +103,6 @@ const darkModeStyles = [
 	},
 ];
 
-
 const hideMarkerStyle = [
 	{
 		featureType: "poi",
@@ -122,46 +124,55 @@ const center = {
 	lng: 106.69798218614284,
 };
 
-const AppGoogleMap = ({ showCamera = false, traffic, station, poi, showSearch = false }) => {
-	const dispatch = useDispatch();
-	const darkMode = useSelector((state) => state.app.darkMode);
+const AppGoogleMap = ({
+	showCamera = true,
+	traffic = true,
+	station = false,
+	poi = false,
+	showSearch = false,
+}) => {
+	const { darkMode } = useThemeStore();
+	const { pushCamera } = useCameraStore();
 	const searchBoxRef = useRef(null);
-	const [positionSearch, setPositionSearch] = useState(center)
-	const [zoom, setZoom] = useState(15)
+	const [positionSearch, setPositionSearch] = useState(center);
+	const [zoom, setZoom] = useState(15);
 
-	const defaultStyles = station == true && poi == true ? []
-		: station == true && poi == false ? [...hideMarkerStyle]
-			: station == false && poi == true ? [...hideStationStyle]
-				: [...hideStationStyle, ...hideMarkerStyle]
+	const defaultStyles =
+		station == true && poi == true
+			? []
+			: station == true && poi == false
+			? [...hideMarkerStyle]
+			: station == false && poi == true
+			? [...hideStationStyle]
+			: [...hideStationStyle, ...hideMarkerStyle];
 
-	const onMarkerClick = (camera) => {
-		dispatch(pushCamera(camera));
+	const onMarkerClick = (camera) => pushCamera(camera);
+	const handleSearchBoxLoad = (searchBox) => {
+		searchBoxRef.current = searchBox;
 	};
-
-	const handleSearchBoxLoad = (searchBox) => { searchBoxRef.current = searchBox }
 
 	const handlePlacesChanged = () => {
 		if (searchBoxRef.current) {
 			const places = searchBoxRef.current.getPlaces();
-			setPositionSearch({
-				lat: places[0].geometry.location.lat(),
-				lng: places[0].geometry.location.lng()
-			})
-			setZoom(17)
+			if (places.length !== 0) {
+				setPositionSearch({
+					lat: places[0].geometry.location.lat(),
+					lng: places[0].geometry.location.lng(),
+				});
+				setZoom(17);
+			}
 		}
 	};
 
-	const handleEnter = () => { handlePlacesChanged() }
+	const handleEnter = () => {
+		handlePlacesChanged();
+	};
 
 	const toCoordinates = () => {
-		const currentPosition = JSON.parse(localStorage.getItem('currentPosition'))
-		setPositionSearch({
-			lat: currentPosition.lat,
-			lng: currentPosition.lng
-		})
-		setZoom(17)
-	}
-
+		const currentPosition = JSON.parse(localStorage.getItem("currentPosition"));
+		setPositionSearch(currentPosition);
+		setZoom(17);
+	};
 
 	return (
 		<GoogleMap
@@ -175,7 +186,6 @@ const AppGoogleMap = ({ showCamera = false, traffic, station, poi, showSearch = 
 				mapTypeControl: false,
 				fullscreenControl: false,
 			}}>
-
 			{station && <TransitLayer />}
 			{traffic && <TrafficLayer />}
 			{showCamera &&
@@ -188,23 +198,16 @@ const AppGoogleMap = ({ showCamera = false, traffic, station, poi, showSearch = 
 					/>
 				))}
 
-			{positionSearch != center &&
-				<Marker
-					position={{
-						lat: positionSearch.lat,
-						lng: positionSearch.lng
-					}}
-					icon={iconLocationSearch}
-				/>
-			}
+			{positionSearch != center && (
+				<Marker position={positionSearch} icon={iconLocationSearch} />
+			)}
 
-			{showSearch &&
+			{showSearch && (
 				<Row justify="center" className="m-0">
 					<Col className="w-full p-0">
 						<StandaloneSearchBox
 							onLoad={handleSearchBoxLoad}
-							onPlacesChanged={handlePlacesChanged}
-						>
+							onPlacesChanged={handlePlacesChanged}>
 							<Input
 								type="text"
 								placeholder="Nhập địa điểm muốn tìm kiếm..."
@@ -217,11 +220,13 @@ const AppGoogleMap = ({ showCamera = false, traffic, station, poi, showSearch = 
 						<Button
 							onClick={toCoordinates}
 							className="absolute right-[10px] top-[370px] rounded-none border-none bg-white !shadow-sm !w-10 !h-10"
-							icon={<AimOutlined className="!text-2xl text-black hover:text-blue-600" />}
+							icon={
+								<AimOutlined className="!text-2xl text-black hover:text-blue-600" />
+							}
 						/>
 					</Col>
 				</Row>
-			}
+			)}
 		</GoogleMap>
 	);
 };
@@ -232,6 +237,6 @@ AppGoogleMap.propTypes = {
 	station: PropTypes.bool.isRequired,
 	poi: PropTypes.bool.isRequired,
 	showSearch: PropTypes.bool.isRequired,
-}
+};
 
 export default AppGoogleMap;

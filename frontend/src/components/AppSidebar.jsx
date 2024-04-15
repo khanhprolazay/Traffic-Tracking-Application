@@ -1,19 +1,21 @@
-import graphql from "../assets/images/graphql.png";
-import { BarChartOutlined, SearchOutlined, HomeOutlined } from "@ant-design/icons";
+import {
+	BarChartOutlined,
+	SearchOutlined,
+	HomeOutlined,
+} from "@ant-design/icons";
 import { Image, Menu, Layout } from "antd";
-// import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { Link, useLocation } from "react-router-dom";
 
 const items = [
 	{ route: "/", label: "Dashboard", icon: <HomeOutlined /> },
 	{ route: "/search", label: "Search", icon: <SearchOutlined /> },
-	{ route: "/statistic", label: "Statistic", icon: <BarChartOutlined /> },
-]
+	{ route: "/street", label: "Street", icon: <BarChartOutlined /> },
+];
 
 const AppSidebar = ({ collapsed }) => {
 	const location = useLocation();
-	const navigate = useNavigate()
+	const pathname = "/" + location.pathname.split("/")[1];
 
 	return (
 		<Layout.Sider
@@ -21,13 +23,14 @@ const AppSidebar = ({ collapsed }) => {
 			collapsible
 			collapsed={collapsed}
 			className="!overflow-auto h-screen !fixed left-0 top-0 bottom-0 z-20 no-scroll-bar">
-			<div className="relative flex items-center h-16" onClick={() => { navigate('/') }}>
+			<Link to="/" className="relative flex items-center h-16">
 				<Image
 					preview={false}
 					width={32}
-					src={graphql}
-					className={`${collapsed ? "left-5" : "left-4"
-						} transition-all ease-linear relative cursor-pointer`}
+					src="/images/graphql.png"
+					className={`${
+						collapsed ? "left-5" : "left-4"
+					} transition-all ease-linear relative cursor-pointer`}
 				/>
 				{!collapsed && (
 					<h1
@@ -36,17 +39,18 @@ const AppSidebar = ({ collapsed }) => {
 						Traffic Dashboard
 					</h1>
 				)}
-			</div>
+			</Link>
 			<Menu
 				className="text-sm font-normal"
 				theme="dark"
 				mode="inline"
-				selectedKeys={[location.pathname]}
-			>
+				selectedKeys={[pathname]}>
 				{items.map((item) => (
-					<Menu.Item key={item.route} onClick={() => { navigate(item.route) }} >
-						{item.icon}
-						<span>{item.label}</span>
+					<Menu.Item key={item.route}>
+						<Link to={item.route}>
+							{item.icon}
+							<span>{item.label}</span>
+						</Link>
 					</Menu.Item>
 				))}
 			</Menu>
@@ -54,9 +58,8 @@ const AppSidebar = ({ collapsed }) => {
 	);
 };
 
-
 AppSidebar.propTypes = {
 	collapsed: PropTypes.bool.isRequired,
-}
+};
 
 export default AppSidebar;
