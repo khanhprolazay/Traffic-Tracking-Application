@@ -13,6 +13,7 @@ def job():
   bus = random.randint(0, 10)
   truck = random.randint(0, 10)
   client.write(MEASUREMENT, create_tags(1, 1, 1), create_fields(bike, car, bus, truck))
+  print(f"Data written: bike={bike}, car={car}, bus={bus}, truck={truck}")
   
 schedule.every(1).seconds.do(job)
 
