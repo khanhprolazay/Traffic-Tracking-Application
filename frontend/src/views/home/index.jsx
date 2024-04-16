@@ -5,14 +5,18 @@ import { TableOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import TableStreet from "../../components/TableStreet";
 import Camera from "../../components/Camera";
 import AppGoogleMap from "../../components/AppGoogleMap";
+import { useCameraStore } from "../../stores";
 
 export default function Home() {
 	const [isMapView, setIsMapView] = useState(true);
-	const [type, setType] = useState("primary");
+	const [status, setStatus] = useState(null);
 
-	const handleChangeTable = (status, type) => {
-		setIsMapView(status);
-		setType(type);
+	const { pushCamera } = useCameraStore();
+	const onClick = (id) => pushCamera(id);
+
+	const handleChangeTable = (mapView, status) => {
+		setIsMapView(!mapView);
+		setStatus(status);
 	};
 
 	return (
@@ -21,7 +25,7 @@ export default function Home() {
 				<Col span={6}>
 					<DashboardCard
 						title="Tổng tuyến đường"
-						typeBox="primary"
+						status={null}
 						content={32}
 						onChangeTable={handleChangeTable}
 					/>
@@ -29,7 +33,7 @@ export default function Home() {
 				<Col span={6}>
 					<DashboardCard
 						title="Tuyến đường thông thoáng"
-						typeBox="success"
+						status={1}
 						content={24}
 						onChangeTable={handleChangeTable}
 					/>
@@ -37,7 +41,7 @@ export default function Home() {
 				<Col span={6}>
 					<DashboardCard
 						title="Tuyến đường đông đúc"
-						typeBox="warning"
+						status={2}
 						content={16}
 						onChangeTable={handleChangeTable}
 					/>
@@ -45,7 +49,7 @@ export default function Home() {
 				<Col span={6}>
 					<DashboardCard
 						title="Tuyến đường kẹt xe"
-						typeBox="error"
+						status={3}
 						content={8}
 						onChangeTable={handleChangeTable}
 					/>
@@ -62,7 +66,7 @@ export default function Home() {
 						checked={!isMapView}
 						onChange={() => {
 							setIsMapView(state => !state);
-							setType("primary");
+							setStatus(null);
 						}}
 					/>
 					{isMapView ? (
@@ -74,7 +78,7 @@ export default function Home() {
 							showSearch={false}
 						/>
 					) : (
-						<TableStreet type={type} />
+						<TableStreet status={status} onItemClick={onClick}/>
 					)}
 				</Col>
 

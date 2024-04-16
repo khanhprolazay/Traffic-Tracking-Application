@@ -141,28 +141,6 @@ export default function Page() {
 					allowFullScreen
 				/>
 			</Col>
-			<Col span={24}>
-				<Card>
-					<ProForm
-						grid
-						layout="vertical"
-						submitter={<></>}
-						params={{}}
-						rowProps={{ gutter: [16, 16] }}>
-						<ProFormSelect
-							colProps={{ xl: 4, md: 12 }}
-							label="Group by"
-							name="level"
-							valueEnum={{
-								day: "Ngày",
-								week: "Tuần",
-								month: "Tháng",
-								year: "Năm",
-							}}
-						/>
-					</ProForm>
-				</Card>
-			</Col>
 		</Row>
 	);
 }

@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import AppCameraDrawler from "./AppCameraDrawler";
 import AppHeader from "./AppHeader";
 import AppSidebar from "./AppSidebar";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 export default function AppLayout() {
@@ -19,7 +19,9 @@ export default function AppLayout() {
 				} transition-all min-h-screen max-h-screen`}>
 				<AppHeader collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
 				<Layout.Content className="overflow-auto">
-					<Outlet />
+					<Suspense fallback={<></>}>
+						<Outlet />
+					</Suspense>
 				</Layout.Content>
 			</Layout>
 		</Layout>

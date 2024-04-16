@@ -7,8 +7,8 @@ export default function ThemeProvider({ children }) {
 
 	return (
 		<ConfigProvider
+		  locale={enUS}
 			theme={{
-				locale: {enUS},
 				hashed: false,
 				algorithm: darkMode
 					? [theme.darkAlgorithm, theme.compactAlgorithm]

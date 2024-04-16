@@ -1,5 +1,5 @@
 import {
-	BarChartOutlined,
+	BranchesOutlined,
 	SearchOutlined,
 	HomeOutlined,
 } from "@ant-design/icons";
@@ -10,7 +10,7 @@ import { Link, useLocation } from "react-router-dom";
 const items = [
 	{ route: "/", label: "Dashboard", icon: <HomeOutlined /> },
 	{ route: "/search", label: "Search", icon: <SearchOutlined /> },
-	{ route: "/street", label: "Street", icon: <BarChartOutlined /> },
+	{ route: "/street", label: "Street", icon: <BranchesOutlined /> },
 ];
 
 const AppSidebar = ({ collapsed }) => {
@@ -34,7 +34,7 @@ const AppSidebar = ({ collapsed }) => {
 				/>
 				{!collapsed && (
 					<h1
-						className={`opacity-100 delay-150"
+						className={`opacity-100 delay-150" text-white
 							 transition-all ease-linear absolute left-14 cursor-pointer font-semibold text-sm`}>
 						Traffic Dashboard
 					</h1>

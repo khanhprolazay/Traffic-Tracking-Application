@@ -1,10 +1,11 @@
+import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/AppLayout";
-import HomePage from "./views/home";
-import SearchPage from "./views/search";
 
-import StreetListPage from "./views/street/list";
-import StreetDetailPage from "./views/street/detail";
+const HomePage = React.lazy(() => import("./views/home"));
+const SearchPage = React.lazy(() => import("./views/search"));
+const StreetListPage = React.lazy(() => import("./views/street/list"));
+const StreetDetailPage = React.lazy(() => import("./views/street/detail")); 
 
 export default function App() {
 	return (

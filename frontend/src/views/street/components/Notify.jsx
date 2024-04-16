@@ -14,11 +14,12 @@ function getBorder(status) {
 
 }
 
-export default function Notify({ status = "primary", message }) {
+export default function Notify({ status = "primary", message, subMessage = "" }) {
 	return (
 		<div className={`border-l-[9px] p-[10px] ${getBorder(status)} border inline-block mr-8 min-w-[200px]`}>
 			<Typography.Title level={1} className="!font-normal !text-xl !my-0">
 				{message}
+				{subMessage && <Typography.Text type="secondary" className="text-xs ml-2">{subMessage}</Typography.Text>}
 			</Typography.Title>
 		</div>
 	);

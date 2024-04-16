@@ -1,15 +1,14 @@
 import { Card, Typography, Row, Tooltip, Divider } from "antd";
 import { EyeOutlined, FilterOutlined } from "@ant-design/icons";
-import PropTypes from "prop-types";
 
-const DashboardCard = ({ title, typeBox, content, onChangeTable }) => {
-	function getColor(typeBox) {
-		switch (typeBox) {
-			case "success":
+const DashboardCard = ({ title, status, content, onChangeTable }) => {
+	function getColor(status) {
+		switch (status) {
+			case 1:
 				return "text-success";
-			case "warning":
+			case 2:
 				return "text-warning";
-			case "error":
+			case 3:
 				return "text-error";
 			default:
 				return "text-primary";
@@ -19,28 +18,22 @@ const DashboardCard = ({ title, typeBox, content, onChangeTable }) => {
 	return (
 		<Card
 			classNames={{ body: "!pb-2" }}
-			key={typeBox}
+			key={status}
 			title={title}>
-			<Typography className={`${getColor(typeBox)} text-2xl font-semibold`}>
+			<Typography className={`${getColor(status)} text-2xl font-semibold`}>
 				{content}
 			</Typography>
 			<Divider className="my-2" />
 			<Row className="h-full justify-center gap-3 cursor-pointer text-lg opacity-50 transition-opacity">
 				<Tooltip title="Xem" className="hover:opacity-20">
-					<EyeOutlined onClick={() => onChangeTable(true, typeBox)} />
+					<EyeOutlined onClick={() => onChangeTable(true, status)} />
 				</Tooltip>
 				<Tooltip title="Lọc" className="hover:opacity-20">
-					<FilterOutlined onClick={() => onChangeTable(false, typeBox)} />
+					<FilterOutlined onClick={() => onChangeTable(false, status)} />
 				</Tooltip>
 			</Row>
 		</Card>
 	);
 };
 
-DashboardCard.propTypes = {
-	title: PropTypes.string.isRequired,
-	typeBox: PropTypes.string.isRequired,
-	content: PropTypes.number.isRequired,
-	onChangeTable: PropTypes.any.isRequired,
-};
 export default DashboardCard;
