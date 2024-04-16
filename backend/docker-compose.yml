@@ -1,15 +1,15 @@
 version: "3"
 services:
-  # influxdb:
-  #   image: influxdb:latest
-  #   ports:
-  #     - "8086:8086"
-  #   volumes:
-  #     - ./volumes/influxdb:/var/lib/influxdb2:rw
-  #   environment:
-  #     - INFLUXDB_DB=db0
-  #     - INFLUXDB_ADMIN_USER=admin@gmail.com
-  #     - INFLUXDB_ADMIN_PASSWORD=7cb4df40-5339-45b9-a812-4cc84ece400c
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./volumes/influxdb:/var/lib/influxdb2:rw
+    environment:
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=admin@gmail.com
+      - INFLUXDB_ADMIN_PASSWORD=7cb4df40-5339-45b9-a812-4cc84ece400c
 
   # chronograf:
   #   image: chronograf:latest
@@ -25,27 +25,27 @@ services:
   #     - INFLUXDB_PASSWORD=7cb4df40-5339-45b9-a812-4cc84ece400c
   #     - TOKEN_SECRET=2d6ca67a-f528-46ad-b548-0750d1379ed7
   #     - USE_V2_API=true
-  #     - JWKS_URL=https://keycloak.bagiit.vn/realms/traffic-tracking/protocol/openid-connect/certs
+  #     - JWKS_URL=https://keycloak.bagiit.vn/realms/sap/protocol/openid-connect/certs
   #     - PUBLIC_URL=http://localhost:8888
   #     - GENERIC_CLIENT_ID=chronograf
   #     - GENERIC_CLIENT_SECRET=0JMTZhvx6mpBRPokClTxWwtTS6paX4DH
-  #     - GENERIC_AUTH_URL=https://keycloak.bagiit.vn/realms/traffic-tracking/protocol/openid-connect/auth
-  #     - GENERIC_TOKEN_URL=https://keycloak.bagiit.vn/realms/traffic-tracking/protocol/openid-connect/token
+  #     - GENERIC_AUTH_URL=https://keycloak.bagiit.vn/realms/sap/protocol/openid-connect/auth
+  #     - GENERIC_TOKEN_URL=https://keycloak.bagiit.vn/realms/sap/protocol/openid-connect/token
   #     - GENERIC_SCOPES=openid,profile,email
-  #     - GENERIC_API_URL=https://keycloak.bagiit.vn/realms/traffic-tracking/protocol/openid-connect/userinfo
-  #     - "CUSTOM_LINKS=Keycloak Logout:https://keycloak.bagiit.vn/realms/traffic-tracking/protocol/openid-connect/logout"
-  jobmanager:
-    image: flink:latest
-    ports:
-      - "8081:8081"
-    command: jobmanager
-    environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  #     - GENERIC_API_URL=https://keycloak.bagiit.vn/realms/sap/protocol/openid-connect/userinfo
+  #     - "CUSTOM_LINKS=Keycloak Logout:https://keycloak.bagiit.vn/realms/sap/protocol/openid-connect/logout"
+  # jobmanager:
+  #   image: flink:latest
+  #   ports:
+  #     - "8081:8081"
+  #   command: jobmanager
+  #   environment:
+  #     - JOB_MANAGER_RPC_ADDRESS=jobmanager
 
-  taskmanager:
-    image: flink:latest
-    depends_on:
-      - jobmanager
-    command: taskmanager
-    environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  # taskmanager:
+  #   image: flink:latest
+  #   depends_on:
+  #     - jobmanager
+  #   command: taskmanager
+  #   environment:
+  #     - JOB_MANAGER_RPC_ADDRESS=jobmanager
