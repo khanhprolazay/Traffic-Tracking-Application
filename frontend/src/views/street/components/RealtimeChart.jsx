@@ -1,6 +1,5 @@
 import { Line } from "@ant-design/charts";
-import { useThemeStore } from "../../../stores/ThemeStore";
-import { useDataStore } from "../../../stores/DataStore";
+import { useThemeStore, useDataStore } from "../../../stores";
 
 export default function RealtimeChart() {
 	const { darkMode } = useThemeStore();

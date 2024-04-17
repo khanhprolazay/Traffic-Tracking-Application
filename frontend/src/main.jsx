@@ -2,9 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
-import GoogleMapProvider from "./providers/GoogleMapProvider";
-import ThemeProvider from "./providers/ThemeProvider";
-import DataProvider from "./providers/DataProvider";
+import { GoogleMapProvider, DataProvider, ThemeProvider} from "./providers";
 
 function AppContext({ children }) {
 	return (

@@ -1,8 +1,8 @@
-import { useDataStore } from "../stores/DataStore";
+import { useDataStore } from "../stores";
 import { getInitialData, getLatestPoint } from "../services/data.service";
 import { useEffect } from "react";
 
-export default function DataProvider({ children }) {
+export function DataProvider({ children }) {
 	const { setData, addPoint } = useDataStore();
 
 	useEffect(() => {

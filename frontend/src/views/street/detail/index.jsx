@@ -6,7 +6,7 @@ import TruckIcon from "../components/icons/Truck";
 import { Card, Col, Divider, Flex, Progress, Row, Tag, Typography } from "antd";
 import ExtraInformation from "../components/ExtraInformation";
 import RealtimeChart from "../components/RealtimeChart";
-import { useDataStore } from "../../../stores/DataStore";
+import { useDataStore } from "../../../stores";
 
 export default function Page() {
 	const { latestPoint } = useDataStore();

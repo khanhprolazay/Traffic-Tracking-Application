@@ -2,7 +2,7 @@ import { ConfigProvider, theme } from "antd";
 import { useThemeStore } from "../stores"
 import enUS from 'antd/lib/locale/en_US';
 
-export default function ThemeProvider({ children }) {
+export function ThemeProvider({ children }) {
 	const darkMode = useThemeStore((state) => state.darkMode);
 
 	return (
