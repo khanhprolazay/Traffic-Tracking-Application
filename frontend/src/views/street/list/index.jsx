@@ -135,8 +135,8 @@ export default function Page() {
 			</Col>
 			<Col span={24}>
 				<Card title="Các tuyến đường" classNames={{ body: "!p-0" }}>
-					{dataFilter.map((item) => (
-						<Table {...item} />
+					{dataFilter.map((item, index) => (
+						<Table key={`table-${index}`} {...item} />
 					))}
 				</Card>
 			</Col>

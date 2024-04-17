@@ -3,7 +3,7 @@ import { Flex, Tag, Typography } from "antd";
 import { STATUS } from "../../../constant";
 import { Link } from "react-router-dom";
 
-export default function Table({ city, streets }) {
+export default function Table({ city, streets, id }) {
 	function getTag(street) {
 		let color = "success";
 		switch (street.status) {
@@ -39,23 +39,25 @@ export default function Table({ city, streets }) {
 					</td>
 				</tr>
 				{streets.map((street) => (
-					<tr>
-						<Flex
-							align="center"
-							justify="space-between"
-							className="py-2 px-[10px]">
-							<Flex align="center" gap={16}>
-								<div className="inline-block min-w-20">{getTag(street)}</div>
-								<Link
-									to={`/street/${street.id}`}
-									className="text-sm font-normal">
-									{street.name}
-								</Link>
+					<tr key={`street-${id}-${street.id}`}>
+						<td>
+							<Flex
+								align="center"
+								justify="space-between"
+								className="py-2 px-[10px]">
+								<Flex align="center" gap={16}>
+									<div className="inline-block min-w-20">{getTag(street)}</div>
+									<Link
+										to={`/street/${street.id}`}
+										className="text-sm font-normal">
+										{street.name}
+									</Link>
+								</Flex>
+								<Typography.Text className="text-sm">
+									{street.age} ngày
+								</Typography.Text>
 							</Flex>
-							<Typography.Text className="text-sm">
-								{street.age} ngày
-							</Typography.Text>
-						</Flex>
+						</td>
 					</tr>
 				))}
 			</tbody>

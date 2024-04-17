@@ -1,39 +1,17 @@
 import Notify from "../components/Notify";
-import { useThemeStore } from "../../../stores/ThemeStore";
 import BikeIcon from "../components/icons/Bike";
 import BusIcon from "../components/icons/Bus";
 import CarIcon from "../components/icons/Car";
 import TruckIcon from "../components/icons/Truck";
-import { Line } from "@ant-design/charts";
 import { Card, Col, Divider, Flex, Progress, Row, Tag, Typography } from "antd";
 import ExtraInformation from "../components/ExtraInformation";
-import { ProForm, ProFormSelect } from "@ant-design/pro-components";
-
-const lineConfig = {
-	data: {
-		type: "fetch",
-		value:
-			"https://render.alipay.com/p/yuyan/180020010001215413/antd-charts/line-connect-nulls.json",
-		transform: [
-			{
-				type: "map",
-				callback: (d) => ({
-					...d,
-					close: new Date(d.date).getUTCMonth() < 3 ? NaN : d.close,
-				}),
-			},
-		],
-	},
-	xField: (d) => new Date(d.date),
-	yField: "close",
-	connectNulls: {
-		connect: true,
-		connectStroke: "#aaa",
-	},
-};
+import RealtimeChart from "../components/RealtimeChart";
+import { useDataStore } from "../../../stores/DataStore";
 
 export default function Page() {
-	const { darkMode } = useThemeStore();
+	const { latestPoint } = useDataStore();
+
+	const get = (key) => latestPoint.find(point => point._field === key)?._value;
 
 	return (
 		<Row gutter={[24, 24]} className="py-6 px-3 !mx-0">
@@ -65,7 +43,7 @@ export default function Page() {
 					title="Số xe máy"
 					rootClassName="border-b border-[#3D98D3]">
 					<Flex justify="space-between" align="center">
-						<Typography.Text className="!text-2xl">5</Typography.Text>
+						<Typography.Text className="!text-2xl">{get("bike")}</Typography.Text>
 						<BikeIcon fill="#ffffffd9" />
 					</Flex>
 				</Card>
@@ -76,7 +54,7 @@ export default function Page() {
 					title="Số xe ô tô"
 					className="border-b border-[#5D995D]">
 					<Flex justify="space-between" align="center">
-						<Typography.Text className="!text-2xl">5</Typography.Text>
+						<Typography.Text className="!text-2xl">{get("car")}</Typography.Text>
 						<CarIcon fill="#ffffffd9" />
 					</Flex>
 				</Card>
@@ -87,7 +65,7 @@ export default function Page() {
 					title="Số xe bus"
 					className="border-b border-[#DAC342]">
 					<Flex justify="space-between" align="center">
-						<Typography.Text className="!text-2xl">5</Typography.Text>
+						<Typography.Text className="!text-2xl">{get("bus")}</Typography.Text>
 						<BusIcon fill="#ffffffd9" />
 					</Flex>
 				</Card>
@@ -98,7 +76,7 @@ export default function Page() {
 					title="Số xe tải"
 					className="border-b border-[#F64747]">
 					<Flex justify="space-between" align="center">
-						<Typography.Text className="!text-2xl">5</Typography.Text>
+						<Typography.Text className="!text-2xl">{get("truck")}</Typography.Text>
 						<TruckIcon fill="#ffffffd9" />
 					</Flex>
 				</Card>
@@ -111,7 +89,7 @@ export default function Page() {
 					}}
 					className="h-full flex flex-col"
 					bordered={false}>
-					<Typography.Text className="text-5xl">120</Typography.Text>
+					<Typography.Text className="text-5xl">{get("total")}</Typography.Text>
 				</Card>
 				<Card
 					title="Tỉ lệ lấp đầy"
@@ -120,15 +98,11 @@ export default function Page() {
 					}}
 					className="h-full flex flex-col"
 					bordered={false}>
-					<Progress type="dashboard" percent={30} />
+					<Progress type="dashboard" percent={Math.round(get("total") / 40 * 100)} />
 				</Card>
 			</Col>
 			<Col span={18}>
-				<Line
-					className="h-[480px]"
-					{...lineConfig}
-					theme={darkMode && "dark"}
-				/>
+				<RealtimeChart />
 			</Col>
 			<Col span={24}>
 				<iframe

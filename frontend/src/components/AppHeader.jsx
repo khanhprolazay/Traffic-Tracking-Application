@@ -7,11 +7,8 @@ import {
 } from "@ant-design/icons";
 import { useState, useLayoutEffect } from "react";
 import { useThemeStore } from "../stores";
+import { getTimeString } from "../utils/date.utils";
 
-const getTimeString = () => {
-	const date = new Date();
-	return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-};
 
 const AppHeader = (props) => {
 	const { collapsed, toggleCollapsed } = props;
