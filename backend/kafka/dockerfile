@@ -1,0 +1,25 @@
+# Stage 1: Clone the Strimzi Kafka OAuth repository and build the jar file
+FROM alpine/git as clone
+WORKDIR /home
+RUN git clone https://github.com/strimzi/strimzi-kafka-oauth.git
+
+# Stage 2: Build the jar file
+FROM maven:3.6-jdk-8 as build
+WORKDIR /home/strimzi-kafka-oauth
+COPY --from=clone /home/strimzi-kafka-oauth .
+RUN mvn clean install -DskipTests
+
+# Stage 3: Copy the jar file to the final image
+FROM confluentinc/cp-kafka:latest
+COPY --from=build /home/strimzi-kafka-oauth/oauth-common/target/kafka-oauth-common-*.jar /usr/share/java/kafka/
+COPY --from=build /home/strimzi-kafka-oauth/oauth-server/target/kafka-oauth-server-*.jar /usr/share/java/kafka/
+COPY --from=build /home/strimzi-kafka-oauth/oauth-server-plain/target/kafka-oauth-server-plain-*.jar /usr/share/java/kafka/
+COPY --from=build /home/strimzi-kafka-oauth/oauth-keycloak-authorizer/target/kafka-oauth-keycloak-authorizer-*.jar /usr/share/java/kafka/
+COPY --from=build /home/strimzi-kafka-oauth/oauth-client/target/kafka-oauth-client-*.jar /usr/share/java/kafka/
+COPY --from=build /home/strimzi-kafka-oauth/oauth-common/target/lib/nimbus-jose-jwt-*.jar /usr/share/java/kafka/
+
+COPY --from=build /home/strimzi-kafka-oauth/oauth-server/target/lib/json-path-*.jar /usr/share/java/kafka/
+COPY --from=build /home/strimzi-kafka-oauth/oauth-server/target/lib/json-smart-*.jar /usr/share/java/kafka/
+COPY --from=build /home/strimzi-kafka-oauth/oauth-server/target/lib/accessors-smart-*.jar /usr/share/java/kafka/
+
+
