@@ -1,33 +1,50 @@
-from kafka import KafkaProducer
-from .config import ConfigService
-import json
+# from confluent_kafka import Producer
+# from .config import ConfigService
+# import json
+# import requests
+# import jwt
+# from time import time
+# import logging
+# import functools
+# import argparse
 
-# class Client:
-#   def __init__(self):
-#     self.bucket = INFLUX_BUCKET
-#     self.org = INFLUX_ORGANIZATION
-#     self.token = INFLUX_WRITE_TOKEN
-#     self.url = INFLUX_URL
+# configService = ConfigService()
+# ssoServer = configService.get("SSO_SERVER")
+# clientId = configService.get("CLIENT_ID")
+# clientSecret = configService.get("CLIENT_SECRET")
 
-#     self.client = influxdb_client.InfluxDBClient(url=self.url, token=self.token, org=self.org)
-#     self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
+# def requestAccessToken():
+#   url = f"{ssoServer}/protocol/openid-connect/token"
+#   headers = {
+#     "Content-Type": "application/x-www-form-urlencoded"
+#   }
+#   data = {
+#     "grant_type": "client_credentials",
+#     "client_id": clientId,
+#     "client_secret": clientSecret
+#   }
+#   response = requests.post(url, headers=headers, data=data)
+#   if response.status_code == 200:
+#     return response.json()['access_token']
+#   else:
+#     raise Exception("Failed to get access token")
 
-#   def write(self, measurement: str, tags, fields):
-#     point = influxdb_client.Point(measurement)
-#     for key, value in tags.items():
-#       point = point.tag(key, value)
-#     for key, value in fields.items():
-#       point = point.field(key, value)
-#     self.write_api.write(bucket=self.bucket, record=point, org=self.org)
+# def isTokenExpried(accessToken):
+#   try:
+#     decode = jwt.decode(accessToken)
+#     return True if decode['exp'] < time() - 10 else False
+#   except:
+#     return True
+  
+# def producer_config():
+#   return {
+#       'bootstrap.servers': configService.get('BOOTSTRAP_SERVERS'),
+#       'security.protocol': 'sasl_plaintext',
+#       'sasl.mechanisms': 'OAUTHBEARER',
+#       # sasl.oauthbearer.config can be used to pass argument to your oauth_cb
+#       # It is not used in this example since we are passing all the arguments
+#       # from command line
+#       # 'sasl.oauthbearer.config': 'not-used',
+#       'oauth_cb': functools.partial(requestAccessToken()),
+#   }
 
-class Client:
-  def __init__(self, configService: ConfigService) -> None:
-    self.configService = configService
-    self.producer = KafkaProducer(
-      bootstrap_servers=configService.get("KAFKA_SERVER"),
-      value_serializer=lambda v: json.dumps(v).encode('utf-8')
-    )
-
-  def write(self, topic: str, data: dict):
-    self.producer.send(topic, value=data)
-    self.producer.flush()
