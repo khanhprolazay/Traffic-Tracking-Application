@@ -4,3 +4,9 @@
 */volumes
 */images
 */*/config.py
+
+**/env/*
+***/__pycache__/*
+****/__pycache__/*
+
+**/config/*

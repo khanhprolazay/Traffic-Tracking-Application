@@ -11,7 +11,7 @@ import { useDataStore } from "../../../stores";
 export default function Page() {
 	const { latestPoint } = useDataStore();
 
-	const get = (key) => latestPoint.find(point => point._field === key)?._value;
+	const get = (key) => latestPoint[key];
 
 	return (
 		<Row gutter={[24, 24]} className="py-6 px-3 !mx-0">

@@ -11,4 +11,6 @@
 
 3. Trang thống kê phân tích:
  + Bảng để hiển thị tuyến đường
- + Bảng để hiển thị trạng thái của 1 tuyến đường (realmtime)
+ + Bảng để hiển thị trạng thái của 1 tuyến đường (realtime)
+
+Streaming youtube video: youtube-dl -o - "https://www.youtube.com/watch?v=ojcp6BTYHSU" | vlc -

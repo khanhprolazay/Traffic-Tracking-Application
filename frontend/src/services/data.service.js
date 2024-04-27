@@ -6,53 +6,17 @@ import {
 	INFLUX_MEAUREMENT,
 	INFLUX_BUCKET,
 } from "../config";
+import { QueryBuilder } from "../utils";
 
 const client = new InfluxDB({
 	url: INFLUX_URL,
 	token: INFLUX_TOKEN,
 }).getQueryApi(INFLUX_ORG);
 
-class QueryBuilder {
-	constructor() {
-		this.query = "";
-	}
-
-	withBucket() {
-		this.query += `\n  from(bucket: "${INFLUX_BUCKET}")`;
-		return this;
-	}
-
-	withRange(begin, end) {
-		this.query += `\n  |> range(start: ${begin}, stop: ${end})`;
-		return this;
-	}
-
-	withStart(start) {
-		return this.withRange(start, "now()");
-	}
-
-	withMeasurement() {
-		this.query += `\n  |> filter(fn: (r) => r._measurement == "${INFLUX_MEAUREMENT}")`;
-		return this;
-	}
-
-  last() {
-    this.query += `\n  |> last()`;
-    return this;
-  }
-
-	tail(n) {
-		this.query += `\n  |> tail(n: ${n})`;
-		return this;
-}
-
-	build() {
-		return this.query;
-	}
-}
+const queryBuilder = new QueryBuilder(INFLUX_BUCKET, INFLUX_MEAUREMENT);
 
 export function getInitialData() {
-	const query = new QueryBuilder()
+	const query = queryBuilder
 		.withBucket()
 		.withStart("-3m")
 		.withMeasurement()
@@ -62,11 +26,11 @@ export function getInitialData() {
 }
 
 export function getLatestPoint() {
-	const query = new QueryBuilder()
-    .withBucket()
+	const query = queryBuilder
+		.withBucket()
 		.withStart("-5s")
-    .withMeasurement()
+		.withMeasurement()
 		.last()
-    .build();
-  return client.collectRows(query);
+		.build();
+	return client.collectRows(query);
 }

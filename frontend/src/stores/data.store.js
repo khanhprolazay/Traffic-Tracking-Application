@@ -1,14 +1,25 @@
 import { create } from "zustand";
+import { toDate } from "../utils";
+
+const _fields = ["bike", "bus", "car", "total", "truck"];
+const _step = 60; // Each field will have 60 points
 
 export const useDataStore = create((set) => ({
-  data: [],
-  latestPoint: [],
-  setData: (data) => set({ data }),
-  addPoint: (point) => set((state) => {
-    let data = state.data;
-    const pointTime = point[0]._time;
-    const marker = new Date(pointTime).getTime() - 60000;
-    data = data.filter((point) => new Date(point._time) > marker);
-    return { ...state, data: [...data, ...point], latestPoint: point}
-  }),
-}))
+	data: [],
+	latestPoint: [],
+	setData: (data) => set({ data }),
+	addPoint: (point) =>
+		set((state) => {
+			let data = [];
+			_fields.forEach((field, index) => {
+        const range = [index * _step, (index + 1) * _step];
+        const insertPoint = {
+          _field: field,
+          _time: toDate(point.time),
+          _value: point[field],
+        }
+        data = [...data, ...state.data.slice(range[0] + 1, range[1]), insertPoint ]
+      })
+			return { ...state, data, latestPoint: point };
+		}),
+}));

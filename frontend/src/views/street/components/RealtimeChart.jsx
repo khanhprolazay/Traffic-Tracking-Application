@@ -4,6 +4,7 @@ import { useThemeStore, useDataStore } from "../../../stores";
 export default function RealtimeChart() {
 	const { darkMode } = useThemeStore();
   const { data } = useDataStore();
+	console.log(data)
 
 	const config = {
 		data: {
@@ -13,7 +14,7 @@ export default function RealtimeChart() {
 					type: "map",
 					callback: (d) => ({
 						...d,
-						_time: new Date(d._time).toLocaleTimeString(),
+						_time: d._time.toLocaleTimeString(),
 					}),
 				}
 			]
