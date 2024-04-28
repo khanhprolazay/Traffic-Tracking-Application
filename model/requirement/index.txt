@@ -90,7 +90,6 @@ pytest-asyncio==0.21.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz==2024.1
-pywin32==306
 PyYAML==6.0.1
 redis==5.0.3
 referencing==0.34.0
@@ -131,3 +130,4 @@ wcwidth==0.2.13
 websocket-client==1.7.0
 yarl==1.9.4
 zxing-cpp==2.2.0
+-e git+https://github.com/meirm/pafy.git@develop#egg=pafy

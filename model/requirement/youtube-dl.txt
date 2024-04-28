@@ -1,0 +1,1 @@
+-e git+https://github.com/ytdl-org/youtube-dl.git#egg=youtube-dl

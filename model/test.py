@@ -1,25 +1,28 @@
 import cv2
+import pafy
 
-# Specify the path to your video
-video_path = "D:\\video\\1min.mp4"
-# Open the video
-video = cv2.VideoCapture(video_path)
+def process_frame(frame):
+    cv2.imshow('frame', frame)
 
-# Find OpenCV version
-(major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')
+def stream_video(url):
+    video = pafy.new(url)
+    best = video.getbest(preftype="mp4")
+    cap = cv2.VideoCapture(best.url)
 
-# Get the frames per second
-if int(major_ver)  < 3 :
-    fps = video.get(cv2.cv.CV_CAP_PROP_FPS)
-    print("Frames per second using video.get(cv2.cv.CV_CAP_PROP_FPS): {0}".format(fps))
-else :
-    fps = video.get(cv2.CAP_PROP_FPS)
-    print("Frames per second using video.get(cv2.CAP_PROP_FPS) : {0}".format(fps))
-# Get the width and height of the video
-width = video.get(cv2.CAP_PROP_FRAME_WIDTH)
-height = video.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
 
-print("Video width: {0}, height: {1}".format(width, height))
+        process_frame(frame)
 
-# Release video
-video.release()
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    youtube_url = 'https://www.youtube.com/watch?v=40u5_BBHNTY'
+    stream_video(youtube_url)
