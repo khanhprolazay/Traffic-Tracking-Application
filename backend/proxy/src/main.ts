@@ -13,7 +13,7 @@ async function bootstrap() {
   const CORS_ORIGIN = process.env.CORS_ORIGIN;
   const KAFKA_SERVER = process.env.KAFKA_SERVER;
 
-  app.enableCors({ origin: CORS_ORIGIN });
+  app.enableCors();
 
   const client = app.get(SsoClient);
   app.connectMicroservice<MicroserviceOptions>({

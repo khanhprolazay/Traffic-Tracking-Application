@@ -10,6 +10,7 @@ def producer_config():
   return {
       'bootstrap.servers': config_service.get("BOOTSTRAP_SERVERS"),
       'security.protocol': 'SASL_PLAINTEXT',
+      'message.max.bytes': 25000000,
       'sasl.mechanisms': 'OAUTHBEARER',
       'sasl.oauthbearer.config': 'oauth_cb',
       'oauth_cb': functools.partial(request_access_token),

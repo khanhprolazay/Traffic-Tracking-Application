@@ -1,5 +1,6 @@
 export const TOPIC = {
-  "STREET_UPDATE": "STREET.UPDATE"
+  "STREET_UPDATE": "STREET.UPDATE",
+  "STREET_STREAMING": "STREET.STREAMING",
 }
 
 export interface StreetUpdatePayload {

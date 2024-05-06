@@ -13,10 +13,10 @@ export function DataProvider({ children }) {
 		getInitialData()
 			.then((data) => setData(data.map(transformDateTime)))
 			.then(() => {
-				const es = new EventSource(PROXY_URL + "/stream");
-				es.onopen = () => console.log("Connected to stream");
+				const es = new EventSource(PROXY_URL + "/sse");
+				es.onopen = () => console.log("Connected to sse");
 				es.onerror = () => {
-					throw new Error("Error connecting to stream");
+					throw new Error("Error connecting to sse");
 				};
 				es.onmessage = (e) => {
 					const point = JSON.parse(e.data);
