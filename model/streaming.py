@@ -11,10 +11,10 @@ TOPIC = "STREET.STREAMING"
 
 def process_frame(frame):
     cv2.imshow('frame', frame)
-    ret, buffer = cv2.imencode('.png', frame)
-    bytes = buffer.tobytes()
-    base64_image = base64.b64encode(bytes)
-    producer.produce(TOPIC, base64_image, key="streaming")
+    # ret, buffer = cv2.imencode('.png', frame)
+    # bytes = buffer.tobytes()
+    # base64_image = base64.b64encode(bytes)
+    # producer.produce(TOPIC, base64_image, key="streaming")
 
 def stream_video(url):
     video = pafy.new(url)
@@ -34,5 +34,5 @@ def stream_video(url):
 
 
 if __name__ == "__main__":
-    youtube_url = 'https://www.youtube.com/watch?v=40u5_BBHNTY'
+    youtube_url = 'https://www.youtube.com/watch?v=ojcp6BTYHSU'
     stream_video(youtube_url)

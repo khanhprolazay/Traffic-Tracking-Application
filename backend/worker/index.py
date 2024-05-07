@@ -19,9 +19,8 @@ def job():
   unix_time = int(time())
 
   data = {
-    "city_id": "Ha Noi",
-    "street_id": "Nguyen Van Linh",
-    "camera_id": "abc_xyz",
+    "city": "ho-chi-minh",
+    "camera": "abc_xyz",
     "bike": bike,
     "car": car,
     "bus": bus,
@@ -33,7 +32,7 @@ def job():
   producer.produce(topic=TOPIC,value=json.dumps(data).encode('utf-8'))
   producer.flush()
 
-  print(f"Data: {data}")
+  # print(f"Data: {data}")
   
 schedule.every(1).seconds.do(job)
 
