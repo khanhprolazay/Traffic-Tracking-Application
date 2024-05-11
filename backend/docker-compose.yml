@@ -41,9 +41,6 @@ services:
     #   - ./volumes/kafka:/var/lib/kafka/data
     env_file:
       - ./env/kafka.env
-    environment:
-      KAFKA_LOG_RETENTION_MS: 2000
-      KAFKA_MESSAGE_MAX_BYTES: 25000000
 
     healthcheck:
       test:

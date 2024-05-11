@@ -1,22 +1,22 @@
 import { Controller, Sse } from '@nestjs/common';
 import { Observable, Subject, map } from 'rxjs';
-import { MessagePattern, Payload } from '@nestjs/microservices';
-import { StreetUpdatePayload, TOPIC } from './type';
-// import { Response } from 'express';
+import { Ctx, EventPattern, KafkaContext } from '@nestjs/microservices';
+import { StreetUpdatePayload } from './type';
+import { FileUtil } from './util/file.util';
 
 @Controller()
 export class AppController {
   private subject = new Subject<any>();
-  private streaming = new Subject<any>();
 
-  constructor() {}
-
-  @MessagePattern(TOPIC.STREET_STREAMING)
-  onStreetStreaming(@Payload() imageBase64Encoded: any) {
-    this.streaming.next(imageBase64Encoded);
+  @EventPattern("street.streaming")
+  onStreetStreaming(@Ctx() context: KafkaContext) {
+    const message = context.getMessage();
+    const camera_id = message.key.toString();
+    const frameEncoded = message.value.toString();
+    FileUtil.writeBase64Image(`./public/${camera_id}.jpg`, frameEncoded);
   }
 
-  @MessagePattern(TOPIC.STREET_UPDATE)
+  @EventPattern("street.update")
   onStretUpdate(payload: StreetUpdatePayload) {
     this.subject.next(payload);
   }
@@ -25,11 +25,4 @@ export class AppController {
   sse(): Observable<MessageEvent> {
     return this.subject.pipe(map((data) => ({ data }) as MessageEvent));
   }
-
-  // @Get('stream')
-  // stream(@Res() res: Response) {
-  //   this.streaming
-  //     .pipe(first())
-  //     .subscribe((imageBase64Encoded) => res.send({ image: imageBase64Encoded }));
-  // }
 }
