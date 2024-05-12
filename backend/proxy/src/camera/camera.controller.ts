@@ -3,6 +3,7 @@ import { Observable, Subject, map } from 'rxjs';
 import { Ctx, EventPattern, KafkaContext } from '@nestjs/microservices';
 import { FileUtil } from 'src/core/util/file.util';
 import { StreetUpdatePayload } from './interfaces/kafka-message.interface';
+import { join } from 'path';
 
 @Controller('camera')
 export class CameraController {
@@ -17,7 +18,7 @@ export class CameraController {
     const frameEncoded = message.value.toString();
 
     this.fileUtil.write({
-      folder: 'public/images',
+      folder: join(__dirname, '..', 'public', 'images'),
       fileName: `${camera_id}.jpg`,
       fileType: 'base64',
       data: frameEncoded,
