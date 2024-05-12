@@ -1,8 +1,3 @@
-export const TOPIC = {
-  "STREET_UPDATE": "STREET.UPDATE",
-  "STREET_STREAMING": "STREET.STREAMING.*",
-}
-
 export interface StreetUpdatePayload {
   "street_id": string,
   "city_id": string,

@@ -1,16 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { HttpClient } from './http-client';
 import { JwtService } from '@nestjs/jwt';
-import { ConfidentalClient } from 'src/interface/oauth.interface';
+import { ConfidentalClient } from '../util/interfaces/oauth.interface';
 
 @Injectable()
 export class SsoClient extends ConfidentalClient {
   private server: string;
 
-  constructor(
-    private readonly jwtService: JwtService,
-    private readonly httpClient: HttpClient,
-  ) {
+  constructor(private readonly httpClient: HttpClient) {
     super(process.env.CLIENT_ID, process.env.CLIENT_SECRET);
     this.server = process.env.SSO_SERVER;
   }
@@ -31,5 +28,4 @@ export class SsoClient extends ConfidentalClient {
     );
     return response.data.access_token as string;
   }
-
 }

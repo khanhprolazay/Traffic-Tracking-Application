@@ -130,4 +130,6 @@ wcwidth==0.2.13
 websocket-client==1.7.0
 yarl==1.9.4
 zxing-cpp==2.2.0
+confluent-kafka
+PyJWT
 -e git+https://github.com/meirm/pafy.git@develop#egg=pafy

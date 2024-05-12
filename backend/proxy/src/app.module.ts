@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { HttpClient } from './util/http-client';
-import { SsoClient } from './util/sso-client';
 import { JwtModule } from '@nestjs/jwt';
+import { GlobalModule } from './core/global.module';
+import { CameraModule } from './camera/camera.module';
 
 @Module({
   imports: [
-    JwtModule.register({ global: true }),
-  ],
-  controllers: [AppController],
-  providers: [HttpClient, SsoClient],
+    GlobalModule, 
+    CameraModule,
+    JwtModule.register({ global: true })],
 })
 export class AppModule {}
