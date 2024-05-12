@@ -18,7 +18,7 @@ export class CameraController {
     const frameEncoded = message.value.toString();
 
     this.fileUtil.write({
-      folder: join(__dirname, '..', 'public', 'images'),
+      folder: join(__dirname, 'public', 'images'),
       fileName: `${camera_id}.jpg`,
       fileType: 'base64',
       data: frameEncoded,

@@ -1,7 +1,4 @@
-import json
-import pafy
-import cv2
-import asyncio
+import json, pafy, cv2, asyncio, threading, queue
 import numpy as np
 import urllib.request
 import reactivex as rx
@@ -15,6 +12,30 @@ from utils import FrameContext, Camera, CameraType, encode_frame
 from services.producer import Producer
 TOPIC = "camera.streaming"
 INTERVAL = 12
+
+class VideoCapture:
+  def __init__(self, name):
+    self.cap = cv2.VideoCapture(name)
+    self.q = queue.Queue()
+    t = threading.Thread(target=self._reader)
+    t.daemon = True
+    t.start()
+
+  # read frames as soon as they are available, keeping only most recent one
+  def _reader(self):
+    while True:
+      ret, frame = self.cap.read()
+      if not ret:
+        break
+      if not self.q.empty():
+        try:
+          self.q.get_nowait()   # discard previous (unprocessed) frame
+        except queue.Empty:
+          pass
+      self.q.put(frame)
+
+  def read(self):
+    return self.q.get()
 
 def publish_frame(context: FrameContext):
   producer.produce(TOPIC, context.frame, key=context.camera_id)
@@ -31,14 +52,14 @@ def handle_video(camera: Camera):
   url = f"https://www.youtube.com/watch?v={camera.src}"
   video = pafy.new(url)
   best = video.getbest(preftype="mp4")
-  cap = cv2.VideoCapture(best.url)
+  cap = VideoCapture(best.url)
 
   subject = rx.Subject()
   subject.subscribe(publish_frame)
 
   rx.interval(INTERVAL).pipe(
       start_with(0),
-      map(lambda _: cap.read()[1]),
+      map(lambda _: cap.read()),
       map(encode_frame),
       map(lambda frame: FrameContext(frame, camera.id))
   ).subscribe(subject)
