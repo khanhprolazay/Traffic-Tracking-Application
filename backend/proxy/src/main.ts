@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import * as dotenv from 'dotenv';
-import { SsoClient } from './util/sso-client';
+import { SsoClient } from './core/clients/sso-client';
 
 dotenv.config({ path: __dirname + '/../.env' });
 
@@ -24,7 +24,9 @@ async function bootstrap() {
         brokers: [KAFKA_SERVER],
         sasl: {
           mechanism: 'oauthbearer',
-          oauthBearerProvider: async () => ({ value: await client.getAccessToken() }),
+          oauthBearerProvider: async () => ({
+            value: await client.getAccessToken(),
+          }),
         },
       },
       consumer: {

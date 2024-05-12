@@ -13,7 +13,7 @@ load_dotenv("./env/.env")
 from utils import FrameContext, Camera, CameraType, encode_frame
 
 from services.producer import Producer
-TOPIC = "street.streaming"
+TOPIC = "camera.streaming"
 INTERVAL = 12
 
 def publish_frame(context: FrameContext):
