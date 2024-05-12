@@ -11,7 +11,7 @@ function getURL(cameraID) {
 }
 
 const date = new Date();
-const dest = join(__dirname, `images/${date.toLocaleDateString().replace(/\//g, "-")}/${date.toLocaleTimeString()}`);
+const dest = join(__dirname, `images`);
 fs.mkdirSync(dest, { recursive: true });
 
 function download(uri, camera) {
@@ -21,7 +21,7 @@ function download(uri, camera) {
 			return;
 		}
 
-		let fileName = join(dest, sanitize(basename(removeVI(camera.name))));
+		let fileName = join(dest, `${date.toString()}_${sanitize(basename(removeVI(camera.name)))}`);
 		if (!extname(fileName)) {
 			const contentType = response.headers["content-type"];
 			const ext = extension(contentType);
