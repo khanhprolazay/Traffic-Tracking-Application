@@ -7,17 +7,15 @@ import { STATUS } from "../constant"
 
 const TableStreet = ({ status, onItemClick }) => {
     const dataFilter = status ? data.filter(item => item.status === status) : data;
-    console.log(status, dataFilter)
+    // console.log(status, dataFilter)
 
     return (
         <Table rootClassName='h-full overflow-auto relative' dataSource={dataFilter} pagination={false}>
             <Column title={<Typography className='text-center text-xs font-normal'>Thành phố</Typography>} dataIndex="city" key="city" className='text-xs' width={125} />
             <Column title={<Typography className='text-center text-xs font-normal'>Tuyến đường</Typography>} dataIndex="street" key="street" className='text-xs' width={175} />
-            <ColumnGroup title="Số lượng xe lưu thông" className='text-xs !font-normal' >
-                <Column align='center' title="Xe Máy" dataIndex="bike" key="bike" width={65} className='text-xs !font-normal' />
-                <Column align='center' title="Xe Ôtô" dataIndex="oto" key="oto" width={65} className='text-xs !font-normal' />
-                <Column align='center' title="Xe Bus" dataIndex="bus" key="bus" width={65} className='text-xs !font-normal' />
-                <Column align='center' title="Xe Tải" dataIndex="truck" key="truck" width={65} className='text-xs !font-normal' />
+            <ColumnGroup title="Số lượng xe lưu thông" className='text-xs !font-normal w-[30%]' >
+                <Column align='center' title="Xe 2 bánh" dataIndex="bike" key="bike" width={65} className='text-xs !font-normal' />
+                <Column align='center' title="Xe 4 bánh trở lên" dataIndex="oto" key="oto" width={65} className='text-xs !font-normal' />
             </ColumnGroup>
             <Column
                 align='center'

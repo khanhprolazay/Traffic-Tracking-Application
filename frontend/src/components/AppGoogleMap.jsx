@@ -5,7 +5,7 @@ import {
 	TrafficLayer,
 	TransitLayer,
 } from "@react-google-maps/api";
-import cameras from "../mock/cameras.mock.json";
+// import cameras from "../mock/cameras.mock.json";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import iconLocationSearch from "/images/locationSearch.png";
@@ -130,6 +130,7 @@ const AppGoogleMap = ({
 	station = false,
 	poi = false,
 	showSearch = false,
+	dataCamera
 }) => {
 	const { darkMode } = useThemeStore();
 	const { pushCamera } = useCameraStore();
@@ -189,7 +190,7 @@ const AppGoogleMap = ({
 			{station && <TransitLayer />}
 			{traffic && <TrafficLayer />}
 			{showCamera &&
-				cameras.map((camera) => (
+				dataCamera.map((camera) => (
 					<Marker
 						key={camera.id}
 						position={camera.position}

@@ -1,6 +1,6 @@
 export default function TruckIcon({
-	width = 50,
-	height = 50,
+	width = 27,
+	height = 27,
 	fill = "#000000",
 }) {
 	return (

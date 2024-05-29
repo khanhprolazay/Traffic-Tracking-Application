@@ -26,10 +26,10 @@ const DashboardCard = ({ title, status, content, onChangeTable }) => {
 			<Divider className="my-2" />
 			<Row className="h-full justify-center gap-3 cursor-pointer text-lg opacity-50 transition-opacity">
 				<Tooltip title="Xem" className="hover:opacity-20">
-					<EyeOutlined onClick={() => onChangeTable(true, status)} />
+					<EyeOutlined onClick={() => onChangeTable(false, status)} />
 				</Tooltip>
 				<Tooltip title="Lọc" className="hover:opacity-20">
-					<FilterOutlined onClick={() => onChangeTable(false, status)} />
+					<FilterOutlined onClick={() => onChangeTable(true, status)} />
 				</Tooltip>
 			</Row>
 		</Card>

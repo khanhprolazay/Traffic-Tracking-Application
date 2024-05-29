@@ -2,8 +2,12 @@ import "../css/table.css";
 import { Flex, Tag, Typography } from "antd";
 import { STATUS } from "../../../constant";
 import { Link } from "react-router-dom";
+import { useDetailStore } from "../../../stores";
 
-export default function Table({ city, streets, id }) {
+export default function Table({ city, streets, cameraID }) {
+
+	const { setData } = useDetailStore();
+
 	function getTag(street) {
 		let color = "success";
 		switch (street.status) {
@@ -19,6 +23,18 @@ export default function Table({ city, streets, id }) {
 		}
 
 		return <Tag color={color}>{STATUS[street.status]}</Tag>;
+	}
+
+	const handleSaveData = (props) => {
+		setData({
+			cameraID: props.cameraID,
+			nameStreet: props.name,
+			type: props.type,
+			status: props.status,
+			startDate: "27/05/2024",
+			alongDate: 135,
+			totalVehicle: 456
+		})
 	}
 
 	return (
@@ -39,7 +55,7 @@ export default function Table({ city, streets, id }) {
 					</td>
 				</tr>
 				{streets.map((street) => (
-					<tr key={`street-${id}-${street.id}`}>
+					<tr key={`street-${cameraID}-${street.cameraID}`} onClick={() => handleSaveData(street)}>
 						<td>
 							<Flex
 								align="center"
@@ -48,7 +64,7 @@ export default function Table({ city, streets, id }) {
 								<Flex align="center" gap={16}>
 									<div className="inline-block min-w-20">{getTag(street)}</div>
 									<Link
-										to={`/street/${street.id}`}
+										to={`/street/${street.cameraID}`}
 										className="text-sm font-normal">
 										{street.name}
 									</Link>

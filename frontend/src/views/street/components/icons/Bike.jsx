@@ -1,4 +1,4 @@
-export default function BikeIcon({ width = 50, height = 50, fill = "#000000"}) {
+export default function BikeIcon({ width = 30, height = 30, fill = "#000000"}) {
 	return (
 		<svg
 			fill={fill}

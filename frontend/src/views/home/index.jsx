@@ -6,6 +6,8 @@ import TableStreet from "../../components/TableStreet";
 import Camera from "../../components/Camera";
 import AppGoogleMap from "../../components/AppGoogleMap";
 import { useCameraStore } from "../../stores";
+import dataCamera from '../../mock/data.camera.dashboard.json';
+
 
 export default function Home() {
 	const [isMapView, setIsMapView] = useState(true);
@@ -76,6 +78,7 @@ export default function Home() {
 							station={false}
 							poi={false}
 							showSearch={false}
+							dataCamera = {dataCamera}
 						/>
 					) : (
 						<TableStreet status={status} onItemClick={onClick}/>
@@ -85,9 +88,9 @@ export default function Home() {
 				<Col
 					span={8}
 					className="h-full flex flex-col gap-6 no-scroll-bar overflow-auto">
-					<Camera id="58af9a07bd82540010390c3b" />
-					<Camera id="58af8d68bd82540010390c2e" />
-					<Camera id="58175c81edeb6c0012a2d5c2" />
+					<Camera id="5d8cdb9f766c880017188968" />
+					<Camera id="662b80051afb9c00172dcaf6" />
+					<Camera id="662b5a401afb9c00172d91fc" />
 				</Col>
 			</Row>
 		</div>

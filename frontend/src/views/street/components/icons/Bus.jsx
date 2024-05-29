@@ -1,4 +1,4 @@
-export default function BusIcon({ width = 50, height = 50, fill = "#000000" }) {
+export default function BusIcon({ width = 27, height = 27, fill = "#000000" }) {
 	return (
 		<svg fill={fill} height={height} width={width} viewBox="0 0 436.64 436.64">
 			<g>
