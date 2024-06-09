@@ -61,33 +61,6 @@ services:
     env_file:
       - ./env/kafka-ui.env
 
-  telegraf:
-    image: telegraf:latest
-    container_name: traffic-telegraf
-    depends_on:
-      - influxdb
-      - zookeeper
-      - kafka
-    networks:
-      - backend
-    volumes:
-      # Mount for telegraf config
-      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-    env_file:
-      - ./env/influxdb.env
-
-  proxy:
-    build: proxy
-    container_name: traffic-proxy
-    depends_on:
-      - zookeeper
-      - kafka
-    networks:
-      - backend
-    ports:
-      - 5000:5000
-    env_file:
-      - ./env/proxy.env
 
 
   # chronograf:
