@@ -1,0 +1,29 @@
+version: "3"
+services:
+
+  telegraf:
+    image: telegraf:latest
+    container_name: traffic-telegraf
+    networks:
+      - backend
+    volumes:
+      # Mount for telegraf config
+      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    env_file:
+      - ./env/influxdb.env
+
+  proxy:
+    build: proxy
+    container_name: traffic-proxy
+    networks:
+      - backend
+    ports:
+      - 5000:5000
+    env_file:
+      - ./env/proxy.env
+
+
+networks:
+  backend:
+    driver: bridge
+    name: traffic-monitoring
