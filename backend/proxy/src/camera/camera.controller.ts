@@ -19,7 +19,7 @@ export class CameraController {
 
     this.fileUtil.write({
       folder: join(__dirname, 'public', 'images'),
-      fileName: `${camera_id}.jpg`,
+      fileName: `${camera_id}.jpeg`,
       fileType: 'base64',
       data: frameEncoded,
     });

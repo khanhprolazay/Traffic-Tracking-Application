@@ -5,6 +5,8 @@ from time import time
 from enum import Enum
 import base64
 from typing import List
+import json
+import urllib.request
 
 def get_time() -> int:
   return int(time()) 
@@ -26,17 +28,27 @@ def encode_frame(frame: np.array) -> bytes:
   return base64.b64encode(bytes)
 
 class FrameContext:
-  def __init__(self, frame: bytes, camera_id: str = "") -> None:
+  def __init__(self, camera_id: str, city_id: str, frame: bytes, motobikes: int, cars: int, status: str) -> None:
     self.frame = frame
     self.time = get_time()
     self.camera_id = camera_id
+    self.motobikes = motobikes
+    self.cars = cars
+    self.status = status
+    self.city_id = city_id
+    print(self.status)
+  
 
   def to_json(self):
-    return {
-      "frame": self.frame,
+    content = {
       "time": self.time,
-      "camera_id": self.camera_id
+      "camera_id": self.camera_id,
+      "motobikes": self.motobikes,
+      "cars": self.cars,
+      "status": self.status,
+      "city_id": self.city_id
     }
+    return json.dumps(content)
 
 class Topic(Enum):
   STREET_STREAMING_IMAGE = "STREET.STREAMING.IMAGE" # Update the street image after running model each 12s
@@ -77,3 +89,19 @@ def create_camera(opts: dict):
   type = CameraType(opts["type"])
   position = Position(opts["position"]["lat"], opts["position"]["lng"])
   return Camera(opts["id"], opts["name"], opts["city"], type, position, opts.get("src"))
+
+
+def get_image(camera: Camera):
+  url = f"http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id={camera.id}"
+  resp = urllib.request.urlopen(url)
+  image = np.asarray(bytearray(resp.read()), dtype=np.uint8)
+  image = cv2.imdecode(image, -1)
+  return image
+
+def jam_level(num_motor, num_car):
+  if (num_motor > 30 or num_car > 20):
+      return 0 # Heavy traffic
+  elif (20 <= num_motor <= 30 or 10 <= num_car <= 20):
+      return 1 # Moderate traffic
+  else:
+      return 2 # Light traffic
