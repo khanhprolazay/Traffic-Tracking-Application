@@ -2,7 +2,7 @@ version: "3"
 services:
   influxdb:
     image: influxdb:latest
-    container_name: influxdb
+    container_name: traffic-influxdb
     ports:
       - "8086:8086"
     networks:
@@ -13,7 +13,7 @@ services:
       - ./env/influxdb.env
 
   zookeeper:
-    container_name: zookeeper
+    container_name: traffic-zookeeper
     image: confluentinc/cp-zookeeper:latest
     networks:
       - backend
@@ -26,7 +26,7 @@ services:
     #   - ./volumes/zookeeper/log:/var/lib/zookeeper/log
 
   kafka:
-    container_name: kafka
+    container_name: traffic-kafka
     hostname: kafka
     # image: confluentinc/cp-kafka:latest
     build: kafka
@@ -50,7 +50,7 @@ services:
       retries: 20
 
   kafka_ui:
-    container_name: kafka-ui
+    container_name: traffic-kafka-ui
     image: provectuslabs/kafka-ui:latest
     networks:
       - backend
@@ -63,10 +63,11 @@ services:
 
   telegraf:
     image: telegraf:latest
-    container_name: telegraf
+    container_name: traffic-telegraf
     depends_on:
       - influxdb
       - zookeeper
+      - kafka
     networks:
       - backend
     volumes:
@@ -74,6 +75,19 @@ services:
       - ./config/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     env_file:
       - ./env/influxdb.env
+
+  proxy:
+    build: proxy
+    container_name: traffic-proxy
+    depends_on:
+      - zookeeper
+      - kafka
+    networks:
+      - backend
+    ports:
+      - 5000:5000
+    env_file:
+      - ./env/proxy.env
 
 
   # chronograf:
