@@ -25,7 +25,7 @@ const TableStreet = ({ status, onItemClick }) => {
                 dataIndex="status"
                 key="status"
                 render={(status) => {
-                    let color = status === 1 ? '#52c41a' : status === 2 ? '#faad14' : '#ff4d4f';
+                    let color = status === 2 ? '#52c41a' : status === 1 ? '#faad14' : '#ff4d4f';
                     return (
                         <Tag color={color} key={status} className='font-semibold'>
                             {STATUS[status]}

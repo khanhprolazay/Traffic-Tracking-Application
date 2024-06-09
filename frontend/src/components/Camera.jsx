@@ -2,23 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Image } from "antd";
 import PropTypes from 'prop-types';
 import { useCameraStore } from "../stores";
+import { PROXY_URL } from '../config';
 
 const Camera = ({ id }) => {
   const { time } = useCameraStore();
-  const [refreshTime, setRefreshTime] = useState(time);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRefreshTime(new Date().getTime());
-    }, 12000); 
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
+    // <Image
+    //   rootClassName="w-full"
+    //   src={`http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=${id}&t=${refreshTime}`}
+    // />
     <Image
       rootClassName="w-full"
-      src={`http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=${id}&t=${refreshTime}`}
+      src={`${PROXY_URL}/public/images/${id}.jpeg?t=${time}`}
     />
   );
 };

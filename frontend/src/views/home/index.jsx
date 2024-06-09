@@ -13,8 +13,8 @@ export default function Home() {
 	const [isMapView, setIsMapView] = useState(true);
 	const [status, setStatus] = useState(null);
 
-	const { pushCamera } = useCameraStore();
-	const onClick = (id) => pushCamera(id);
+	const { pushDrawlerCamera } = useCameraStore();
+	const onClick = (id) => pushDrawlerCamera(id);
 
 	const handleChangeTable = (mapView, status) => {
 		setIsMapView(!mapView);

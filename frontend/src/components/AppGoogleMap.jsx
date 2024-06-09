@@ -133,7 +133,7 @@ const AppGoogleMap = ({
 	dataCamera
 }) => {
 	const { darkMode } = useThemeStore();
-	const { pushCamera } = useCameraStore();
+	const { pushDrawlerCamera } = useCameraStore();
 	const searchBoxRef = useRef(null);
 	const [positionSearch, setPositionSearch] = useState(center);
 	const [zoom, setZoom] = useState(15);
@@ -147,7 +147,7 @@ const AppGoogleMap = ({
 			? [...hideStationStyle]
 			: [...hideStationStyle, ...hideMarkerStyle];
 
-	const onMarkerClick = (camera) => pushCamera(camera);
+	const onMarkerClick = (camera) => pushDrawlerCamera(camera);
 	const handleSearchBoxLoad = (searchBox) => {
 		searchBoxRef.current = searchBox;
 	};

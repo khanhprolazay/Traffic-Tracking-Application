@@ -27,7 +27,7 @@ const CameraItem = ({ id, name, index, total }) => {
 };
 
 const AppCameraDrawler = () => {
-	const { cameras, setOpenAppDrawer, openCamerasDrawler } = useCameraStore();
+	const { drawlerCameras, setOpenAppDrawer, openCamerasDrawler } = useCameraStore();
 	const onClose = () => setOpenAppDrawer(false);
 
 	return (
@@ -36,11 +36,11 @@ const AppCameraDrawler = () => {
 			onClose={onClose}
 			title="Thông tin tuyến đường"
 			open={openCamerasDrawler}>
-			{cameras.map((camera, index) => (
+			{drawlerCameras.map((camera, index) => (
 				<CameraItem
 					key={camera.id}
 					index={index}
-					total={cameras.length}
+					total={drawlerCameras.length}
 					{...camera}
 				/>
 			))}

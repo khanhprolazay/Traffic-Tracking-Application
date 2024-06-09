@@ -1,5 +1,5 @@
 export const STATUS = {
-	1: "Thông thoáng",
-	2: "Đông đúc",
-	3: "Kẹt xe",
+	2: "Thông thoáng",
+	1: "Đông đúc",
+	0: "Kẹt xe",
 };
