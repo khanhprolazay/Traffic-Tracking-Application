@@ -36,7 +36,7 @@ const data = [
 				cameraID: "662b5a401afb9c00172d91fc",
 				name: "Trường Chinh - Nguyễn Hồng Đào",
 				type: "IMAGE",
-				status: 3,
+				status: 0,
 				age: 2,
 			},
 			{
@@ -50,7 +50,7 @@ const data = [
 				cameraID: "5d8cdb9f766c880017188968",
 				name: "Hoàng Văn Thụ - Trần Huy Liệu",
 				type: "IMAGE",
-				status: 3,
+				status: 0,
 				age: 2,
 			},
 			{
@@ -71,7 +71,7 @@ const data = [
 	},
 ];
 
-const initialFilter = { status: null, city: null }
+const initialFilter = { status: null }
 
 export default function Page() {
 	const formRef = useRef();
@@ -81,14 +81,10 @@ export default function Page() {
 		formRef.current.resetFields();
 	};
 
-	let dataFilter = data.filter((item) =>
-		filter.city ? item.id === Number.parseInt(filter.city) : true
-	);
-
-	dataFilter = filter.status ? dataFilter.map(city => ({
+	let dataFilter = filter.status ? data.map(city => ({
 		...city,
 		streets: city.streets.filter(street => street.status === Number.parseInt(filter.status))
-	})) : dataFilter;
+	})) : data;
 
 	return (
 		<Row justify="center" className="p-6">

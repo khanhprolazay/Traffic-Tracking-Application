@@ -3,7 +3,7 @@ const { Column } = Table;
 import { VideoCameraOutlined } from '@ant-design/icons'
 import ColumnGroup from 'antd/es/table/ColumnGroup';
 import data from "../mock/data.street.mock.json";
-import { STATUS } from "../constant"
+import { StreetStatus } from "../constant"
 
 const TableStreet = ({ status, onItemClick }) => {
     const dataFilter = status ? data.filter(item => item.status === status) : data;
@@ -28,7 +28,7 @@ const TableStreet = ({ status, onItemClick }) => {
                     let color = status === 2 ? '#52c41a' : status === 1 ? '#faad14' : '#ff4d4f';
                     return (
                         <Tag color={color} key={status} className='font-semibold'>
-                            {STATUS[status]}
+                            {Object.keys(StreetStatus).find(key => StreetStatus[key] === status)}
                         </Tag>
                     )
                 }}

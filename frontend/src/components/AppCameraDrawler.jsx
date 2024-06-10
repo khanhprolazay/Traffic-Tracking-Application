@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 import { useCameraStore } from "../stores";
 
 const CameraItem = ({ id, name, index, total }) => {
-	const { removeCamera } = useCameraStore();
-	const onItemClick = () => removeCamera(id);
+	const { removeDrawlerCamera } = useCameraStore();
+	const onItemClick = () => removeDrawlerCamera(id);
 
 	return (
 		<div className="relative">

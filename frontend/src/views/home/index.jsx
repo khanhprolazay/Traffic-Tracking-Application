@@ -7,13 +7,14 @@ import Camera from "../../components/Camera";
 import AppGoogleMap from "../../components/AppGoogleMap";
 import { useCameraStore } from "../../stores";
 import dataCamera from '../../mock/data.camera.dashboard.json';
+import { StreetStatus } from "../../constant";
 
 
 export default function Home() {
 	const [isMapView, setIsMapView] = useState(true);
 	const [status, setStatus] = useState(null);
 
-	const { pushDrawlerCamera } = useCameraStore();
+	const { pushDrawlerCamera, analysys, total } = useCameraStore();
 	const onClick = (id) => pushDrawlerCamera(id);
 
 	const handleChangeTable = (mapView, status) => {
@@ -28,7 +29,7 @@ export default function Home() {
 					<DashboardCard
 						title="Tổng tuyến đường"
 						status={null}
-						content={32}
+						content={total}
 						onChangeTable={handleChangeTable}
 					/>
 				</Col>
@@ -36,7 +37,7 @@ export default function Home() {
 					<DashboardCard
 						title="Tuyến đường thông thoáng"
 						status={1}
-						content={24}
+						content={analysys[StreetStatus.NORMAL] || 0}
 						onChangeTable={handleChangeTable}
 					/>
 				</Col>
@@ -44,7 +45,7 @@ export default function Home() {
 					<DashboardCard
 						title="Tuyến đường đông đúc"
 						status={2}
-						content={16}
+						content={analysys[StreetStatus.CROWDED] || 0}
 						onChangeTable={handleChangeTable}
 					/>
 				</Col>
@@ -52,7 +53,7 @@ export default function Home() {
 					<DashboardCard
 						title="Tuyến đường kẹt xe"
 						status={3}
-						content={8}
+						content={analysys[StreetStatus.JAM] || 0}
 						onChangeTable={handleChangeTable}
 					/>
 				</Col>

@@ -105,3 +105,15 @@ body {
 .ant-card .ant-card-head-title {
   font-weight: 400;
 }
+
+.ant-image-preview-mask {
+  z-index: 30 !important;
+}
+
+.ant-image-preview-wrap {
+  z-index: 30 !important;
+}
+
+.ant-image-preview-operations-wrapper {
+  z-index: 31 !important;
+}

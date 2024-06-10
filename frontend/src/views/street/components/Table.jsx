@@ -11,10 +11,10 @@ export default function Table({ city, streets, cameraID }) {
 	function getTag(street) {
 		let color = "success";
 		switch (street.status) {
-			case 2:
+			case 1:
 				color = "warning";
 				break;
-			case 3:
+			case 0:
 				color = "error";
 				break;
 			default:
