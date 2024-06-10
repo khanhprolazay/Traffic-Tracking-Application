@@ -3,9 +3,15 @@
 import { create } from 'zustand';
 import cameras from '../mock/data.camera.dashboard.json';
 
+let initialAnalysys = {
+	0: 0,
+	1: 0,
+	2: 0,
+};
+
 export const useCameraStore = create((set) => ({
 	total: cameras.length,
-	analysys: {},
+	analysys: initialAnalysys,
 	cameras: cameras.reduce(
 		(acc, camera) => ({ ...acc, [camera.id]: camera }),
 		{}
@@ -14,20 +20,36 @@ export const useCameraStore = create((set) => ({
 	time: Date.now(),
 	openCamerasDrawler: false,
 
-	updateAnalysys: (analysys) => set({ analysys }),
-	updateCameraStatus: (id, status) =>
+	updateCameraStatus: (camera) =>
 		set((state) => {
-			const camera = state.cameras[id];
-			if (camera) {
-				return {
-					cameras: {
-						...state.cameras,
-						[id]: { ...camera, status },
-					},
-				};
+			const { camera_id, status } = camera;
+			const { cameras, analysys } = state;
+
+			// Update status of camera
+			const updatedCameras = {
+				...cameras,
+				[camera_id]: {
+					...cameras[camera_id],
+					status,
+				},
+			};
+
+			// Update analysis
+			const beforeStatus = cameras[camera_id].status;
+			const updatedAnalysys = analysys;
+			if (analysys[beforeStatus] > 0) {
+				updatedAnalysys[beforeStatus] -= 1;
+				updatedAnalysys[status] += 1;
+			} else {
+				updatedAnalysys[status] += 1;
 			}
-			return {};
+
+			return {
+				cameras: updatedCameras,
+				analysys: updatedAnalysys,
+			};
 		}),
+
 	toggleTime: () => set({ time: Date.now() }),
 	setOpenAppDrawer: (open) => set({ openCamerasDrawler: open }),
 

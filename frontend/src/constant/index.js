@@ -4,10 +4,22 @@
 // 	0: "Kẹt xe",
 // };
 
+// export const StreetStatus = {
+// 	NORMAL: 2,
+// 	CROWDED: 1,
+// 	JAM: 0,
+// }
+
 export const StreetStatus = {
 	NORMAL: 2,
 	CROWDED: 1,
 	JAM: 0,
+}
+
+export const StreetStatusEnum = {
+	2: "NORMAL",
+	1: "CROWDED",
+	0: "JAM",
 }
 
 export const StreetStatusText = {
