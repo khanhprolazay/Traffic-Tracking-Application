@@ -136,7 +136,7 @@ const AppGoogleMap = ({
 	const { pushDrawlerCamera } = useCameraStore();
 	const searchBoxRef = useRef(null);
 	const [positionSearch, setPositionSearch] = useState(center);
-	const [zoom, setZoom] = useState(15);
+	const [zoom, setZoom] = useState(13);
 
 	const defaultStyles =
 		station == true && poi == true

@@ -9,3 +9,9 @@ export const StreetStatus = {
 	CROWDED: 1,
 	JAM: 0,
 }
+
+export const StreetStatusText = {
+	2: "Thông thoáng",
+	1: "Đông đúc",
+	0: "Kẹt xe",
+}

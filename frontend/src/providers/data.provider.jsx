@@ -10,7 +10,7 @@ import cameras from '../mock/data.camera.dashboard.json';
 export function DataProvider({ children }) {
 	const count = useRef(0);
 	const analysys = useRef({});
-	const { toggleTime, updateAnalysys } = useCameraStore();
+	const { toggleTime, updateAnalysys, updateCameraStatus } = useCameraStore();
 
 	useEffect(() => {
 		const es = new EventSource(PROXY_URL + '/camera/sse');
@@ -21,7 +21,7 @@ export function DataProvider({ children }) {
 		es.onmessage = (e) => {
 			count.current++;
 			const { data } = e;
-			const { status } = JSON.parse(data);
+			const { camera_id, status } = JSON.parse(data);
 
 			if (!analysys.current[status]) {
 				analysys.current[status] = 1;
@@ -34,6 +34,8 @@ export function DataProvider({ children }) {
 				analysys.current = {};
 				count.current = 0;
 			}
+
+			updateCameraStatus(camera_id, status);
 		};
 	}, []);
 
