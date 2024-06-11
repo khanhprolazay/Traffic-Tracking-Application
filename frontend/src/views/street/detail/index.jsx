@@ -19,15 +19,15 @@ import RealtimeChart from '../components/RealtimeChart';
 import { useCameraStore } from '../../../stores';
 import Camera from '../../../components/Camera';
 import { useParams } from 'react-router-dom';
-import { StreetStatusText } from '../../../constant';
+import { StreetStatus, StreetStatusText } from '../../../constant';
 
 function getColor(status) {
 	switch (status) {
-		case 1:
+		case StreetStatus.CROWDED:
 			return 'warning';
-		case 0:
+		case StreetStatus.JAM:
 			return 'error';
-		case 2:
+		case StreetStatus.NORMAL:
 			return 'success';
 		default:
 			return 'geekblue';
@@ -126,6 +126,7 @@ export default function Page() {
 				</Card>
 			</Col>
 			<Col span={18}><RealtimeChart key={id} id={camera.id} /></Col>
+			<Col span={24}></Col>
 		</Row>
 	);
 }
