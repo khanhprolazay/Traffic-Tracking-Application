@@ -20,9 +20,9 @@ export const useCameraStore = create((set) => ({
 	time: Date.now(),
 	openCamerasDrawler: false,
 
-	updateCameraStatus: (camera) =>
+	updateCamera: (camera) =>
 		set((state) => {
-			const { camera_id, status } = camera;
+			const { camera_id, status, motobikes, cars } = camera;
 			const { cameras, analysys } = state;
 
 			// Update status of camera
@@ -31,6 +31,8 @@ export const useCameraStore = create((set) => ({
 				[camera_id]: {
 					...cameras[camera_id],
 					status,
+					motobikes,
+					cars,
 				},
 			};
 

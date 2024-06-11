@@ -5,7 +5,7 @@ import { PROXY_URL } from '../config';
 import { useCameraStore } from '../stores';
 
 export function DataProvider({ children }) {
-	const { toggleTime, updateCameraStatus } =
+	const { toggleTime, updateCamera } =
 		useCameraStore();
 
 	useEffect(() => {
@@ -17,7 +17,7 @@ export function DataProvider({ children }) {
 		es.onmessage = (e) => {
 			const { data } = e;
 			const dataParse = JSON.parse(data);
-			updateCameraStatus(dataParse);
+			updateCamera(dataParse);
 
 			return () => {
 				es.close();

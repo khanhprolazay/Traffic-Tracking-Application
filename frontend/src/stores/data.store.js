@@ -23,22 +23,3 @@ export const useDataStore = create((set) => ({
          return { ...state, data, latestPoint: point };
       }),
 }));
-
-// export const useDetailStore = create((set) => ({
-//    data: {
-//       cameraID: "",
-//       nameStreet: "",
-//       type: "",
-//       status: null,
-//       startDate: "",
-//       alongDate: null,
-//       totalVehicle: null,
-//    },
-//    setData: (newData) =>
-//       set((state) => ({
-//          data: {
-//             ...state.data,
-//             ...newData,
-//          },
-//       })),
-// }));
