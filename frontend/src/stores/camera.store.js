@@ -12,6 +12,7 @@ let initialAnalysys = {
 export const useCameraStore = create((set) => ({
 	total: cameras.length,
 	analysys: initialAnalysys,
+	latestCamera: null,
 	cameras: cameras.reduce(
 		(acc, camera) => ({ ...acc, [camera.id]: camera }),
 		{}
@@ -22,17 +23,16 @@ export const useCameraStore = create((set) => ({
 
 	updateCamera: (camera) =>
 		set((state) => {
-			const { camera_id, status, motobikes, cars } = camera;
+				const { camera_id, status } = camera;
 			const { cameras, analysys } = state;
+			const transformCamera = { ...camera, id: camera_id };
 
 			// Update status of camera
 			const updatedCameras = {
 				...cameras,
 				[camera_id]: {
 					...cameras[camera_id],
-					status,
-					motobikes,
-					cars,
+					...camera
 				},
 			};
 
@@ -47,6 +47,7 @@ export const useCameraStore = create((set) => ({
 			}
 
 			return {
+				latestCamera: transformCamera,
 				cameras: updatedCameras,
 				analysys: updatedAnalysys,
 			};

@@ -24,6 +24,16 @@ export class QueryBuilder {
 		return this;
 	}
 
+	withCamera(id) {
+		this.query += `\n  |> filter(fn: (r) => r.camera_id == "${id}")`;
+		return this;
+	}
+
+	withCameraField() {
+		this.query += `\n  |> filter(fn: (r) => r[\"_field\"] == \"cars\" or r[\"_field\"] == \"motobikes\" or r[\"_field\"] == \"status\")`;
+		return this;
+	}
+
   last() {
     this.query += `\n  |> last()`;
     return this;

@@ -1,34 +1,64 @@
-import { Line } from "@ant-design/charts";
-import { useThemeStore, useDataStore } from "../../../stores";
+/** @format */
 
-export default function RealtimeChart() {
+import { Line } from '@ant-design/charts';
+import { useCameraStore, useThemeStore } from '../../../stores';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { getCameraData } from '../../../services/data.service';
+import { toDate } from '../../../utils';
+
+const _fields = ['cars', 'motobikes', 'status'];
+const _step = 60;
+
+export default function RealtimeChart({ id }) {
 	const { darkMode } = useThemeStore();
-  const { data } = useDataStore();
-	// console.log(data)
+	const { latestCamera } = useCameraStore();
+	const [data, setData] = useState([]);
 
 	const config = {
 		data: {
 			value: data,
-			transform:[
+			transform: [
 				{
-					type: "map",
+					type: 'map',
 					callback: (d) => ({
 						...d,
-						_time: d._time.toLocaleTimeString(),
+						_time: new Date(d._time).toLocaleTimeString(),
 					}),
-				}
-			]
+				},
+			],
 		},
-		xField: "_time",
-		yField: "_value",
-		colorField: "_field",
+		xField: '_time',
+		yField: '_value',
+		colorField: '_field',
 		meta: {
-			time: { alias: "Time" },
-			value: { alias: "Value" },
+			time: { alias: 'Time' },
+			value: { alias: 'Value' },
 		},
-	}
+	};
 
-	return (
-		<Line className="h-[480px]" {...config} theme={darkMode && "dark"} />
-	);
+	useEffect(() => {
+		getCameraData(id).then((res) => setData(res));
+	}, []);
+
+	console.log(data)
+
+	useLayoutEffect(() => {
+		if (latestCamera?.id === id) {
+			setData((prev) => {
+				let data = [];
+				_fields.forEach((field, index) => {
+					const range = [index * _step, (index + 1) * _step];
+					const insertPoint = {
+						_field: field,
+						_time: toDate(latestCamera.time),
+						_value: latestCamera[field],
+					};
+					data = [...data, ...prev.slice(range[0] + 1, range[1]), insertPoint];
+				});
+				return data;
+			});
+		}
+	}, [latestCamera]);
+
+	return <Line className="h-[480px]" {...config} theme={darkMode && 'dark'} />;
 }

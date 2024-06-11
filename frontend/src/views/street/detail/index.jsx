@@ -12,9 +12,11 @@ import {
 	Tag,
 	Typography,
 } from 'antd';
+
+
 import ExtraInformation from '../components/ExtraInformation';
 import RealtimeChart from '../components/RealtimeChart';
-import { useDataStore, useCameraStore } from '../../../stores';
+import { useCameraStore } from '../../../stores';
 import Camera from '../../../components/Camera';
 import { useParams } from 'react-router-dom';
 import { StreetStatusText } from '../../../constant';
@@ -34,12 +36,9 @@ function getColor(status) {
 
 export default function Page() {
 	const { id } = useParams();
-	const { latestPoint } = useDataStore();
 	const { cameras } = useCameraStore();
-	const get = (key) => latestPoint[key];
 	const camera = cameras[id];
-
-	console.log(camera)
+	const total = camera.cars + camera.motobikes || 0;
 
 	return (
 		<Row gutter={[24, 24]} className="py-6 px-3 !mx-0">
@@ -98,7 +97,7 @@ export default function Page() {
 					rootClassName="border-b border-[#F64747]">
 					<Flex justify="space-between" align="center">
 						<Typography.Text className="text-3xl">
-							{get('total')}25
+							{camera.cars + camera.motobikes || 0}
 						</Typography.Text>
 					</Flex>
 				</Card>
@@ -107,7 +106,7 @@ export default function Page() {
 				<Card
 					title="Hình ảnh giao thông hiện tại"
 					classNames={{
-						body: 'flex justify-center items-center h-full p-0',
+						body: 'flex justify-center items-center h-full',
 					}}
 					className="flex flex-col"
 					bordered={false}>
@@ -122,11 +121,11 @@ export default function Page() {
 					bordered={false}>
 					<Progress
 						type="dashboard"
-						percent={Math.round((get('total') / 40) * 100)}
+						percent={Math.round((total / 30) * 100)}
 					/>
 				</Card>
 			</Col>
-			<Col span={18}>{/* <RealtimeChart /> */}</Col>
+			<Col span={18}><RealtimeChart key={id} id={camera.id} /></Col>
 		</Row>
 	);
 }

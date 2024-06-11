@@ -1,14 +1,15 @@
 import { Card, Typography, Row, Tooltip, Divider } from "antd";
 import { EyeOutlined, FilterOutlined } from "@ant-design/icons";
+import { StreetStatus } from "../../../constant";
 
 const DashboardCard = ({ title, status, content, onChangeTable }) => {
 	function getColor(status) {
 		switch (status) {
-			case 1:
+			case StreetStatus.NORMAL:
 				return "text-success";
-			case 2:
+			case StreetStatus.CROWDED:
 				return "text-warning";
-			case 3:
+			case StreetStatus.JAM:
 				return "text-error";
 			default:
 				return "text-primary";

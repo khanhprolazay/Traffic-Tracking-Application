@@ -36,7 +36,7 @@ export default function Home() {
 				<Col span={6}>
 					<DashboardCard
 						title="Tuyến đường thông thoáng"
-						status={1}
+						status={StreetStatus.NORMAL}
 						content={analysys[StreetStatus.NORMAL] || 0}
 						onChangeTable={handleChangeTable}
 					/>
@@ -44,7 +44,7 @@ export default function Home() {
 				<Col span={6}>
 					<DashboardCard
 						title="Tuyến đường đông đúc"
-						status={2}
+						status={StreetStatus.CROWDED}
 						content={analysys[StreetStatus.CROWDED] || 0}
 						onChangeTable={handleChangeTable}
 					/>
@@ -52,7 +52,7 @@ export default function Home() {
 				<Col span={6}>
 					<DashboardCard
 						title="Tuyến đường kẹt xe"
-						status={3}
+						status={StreetStatus.JAM}
 						content={analysys[StreetStatus.JAM] || 0}
 						onChangeTable={handleChangeTable}
 					/>
