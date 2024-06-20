@@ -85,6 +85,7 @@ def setup_model_and_annotators(size, fps):
     return model, byte_track, bounding_box_annotator, label_annotator, trace_annotator, polygon_zone, view_transformer, coordinates # Trả về model và các annotators
 
 ## url utube path
+<<<<<<< HEAD
 def setup_video_capture(url):
     video = pafy.new(url) # Load video
     best = video.getbest(preftype="mp4") # Chọn chất lượng tốt nhất
@@ -102,6 +103,25 @@ def setup_video_capture(url):
 #     size = (w, h) 
 #     print(f"Video size: {size}, fps: {fps}")
 #     return cap, size, fps  #
+=======
+# def setup_video_capture(url):
+#     video = pafy.new(url) # Load video
+#     best = video.getbest(preftype="mp4") # Chọn chất lượng tốt nhất
+#     cap = cv2.VideoCapture(best.url) # Mở video bằng OpenCV
+#     w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS)) # Lấy thông số của video
+#     size = (w, h) # Kích thước video
+#     print(f"Video size: {size}, fps: {fps}")
+#     return cap, size, fps  # Trả về video, kích thước và fps
+
+
+## video path
+def setup_video_capture(video_path):
+    cap = cv2.VideoCapture(video_path)
+    w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS)) 
+    size = (w, h) 
+    print(f"Video size: {size}, fps: {fps}")
+    return cap, size, fps  #
+>>>>>>> 38736fbd561898951dcbd5820b71cb41bcca7c9c
 
 def calculate_traffic_level(vehicle_info, avg_speeds):
     density_motorbikes = vehicle_info[0]['count'] / AREA
@@ -136,7 +156,11 @@ def process_detections(detections, coordinates, fps, view_transformer):
 
     points = detections.get_anchors_coordinates(sv.Position.BOTTOM_CENTER) # Lấy tọa độ của các đối tượng
     transformed_points = view_transformer.transform_points(points) # Chuyển đổi tọa độ
+<<<<<<< HEAD
     if transformed_points is not None:   
+=======
+    if transformed_points is not None: 
+>>>>>>> 38736fbd561898951dcbd5820b71cb41bcca7c9c
         points = transformed_points.astype(np.int32)
 
     labels = []
@@ -222,6 +246,15 @@ def stream_video(url):
         detections = byte_track.update_with_detections(detections)
     
         vehicle_info, traffic_level, labels= process_detections(detections, coordinates, fps, view_transformer)
+<<<<<<< HEAD
+=======
+        
+        # if num_objects > 0:
+        #     average_speed = total_speed / num_objects
+        #     avg_speed_text = f"Toc do trung binh: {average_speed:.2f} km/h"
+        # else:
+        #     avg_speed_text = f"Toc do trung binh: 0 km/h"
+>>>>>>> 38736fbd561898951dcbd5820b71cb41bcca7c9c
         num_motor = vehicle_info[0]['count']
         num_car = vehicle_info[1]['count']
 
@@ -232,7 +265,11 @@ def stream_video(url):
 
         annotate_and_display_frame(size,frame, detections,num_motor_text, num_car_text, traffic_level_text, trace_annotator, bounding_box_annotator, label_annotator, labels)
         # process_frame(frame)
+<<<<<<< HEAD
         if cv2.waitKey(1) & 0xFF == ord('q'):
+=======
+        if cv2.waitKey(0) & 0xFF == ord('q'):
+>>>>>>> 38736fbd561898951dcbd5820b71cb41bcca7c9c
             break
 
             # time.sleep(2)  # wait for 5 seconds before retrying
@@ -252,9 +289,18 @@ if __name__ == "__main__":
 #num_car
 #average_speed
 
+<<<<<<< HEAD
 # youtube_url_1 = 'https://www.youtube.com/watch?v=Fu3nDsqC1J0' 
 # youtube_url_2 = 'https://www.youtube.com/watch?v=8vHp9b8ZlJc'
 # video_url = '../video/video1.mp4'
 # python bytetrack.py --source_path  ../video/video1.mp4
 # "C:\Users\TotNguyen\Desktop\khoa-luan\py310\Scripts\activate"
 # python bytetrack.py --source_path  https://www.youtube.com/watch?v=Fu3nDsqC1J0
+=======
+# youtube_url_1 = 'https://www.youtube.com/watch?v=40u5_BBHNTY' 
+# youtube_url_2 = 'https://www.youtube.com/watch?v=ojcp6BTYHSU'
+# video_url = '../video/video1.mp4'
+# python bytetrack.py --source_path  ../video/video1.mp4
+# "C:\Users\TotNguyen\Desktop\khoa-luan\py310\Scripts\activate"
+# python bytetrack.py --source_path  ../input/image-test.jpg
+>>>>>>> 38736fbd561898951dcbd5820b71cb41bcca7c9c
