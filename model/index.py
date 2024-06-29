@@ -1,23 +1,22 @@
-import json, asyncio 
+import json, asyncio , pafy, base64, io
 import reactivex as rx
-from utils import create_camera, jam_level, get_image
+from utils import create_camera, jam_level, get_image, VideoCapture
 from reactivex.operators import map, start_with
 from ultralytics import YOLO
 from PIL import Image
-import base64
-import io
 import supervision as sv
 
 from cv2.typing import MatLike
 
 from dotenv import load_dotenv
 load_dotenv("./env/.env")
-from utils import FrameContext, Camera
+from utils import FrameContext, Camera, CameraType
 
 from services.producer import Producer
 STREAMING_TOPIC = "camera.streaming"
 UPDATE_TOPIC = "camera.update"
-INTERVAL = 12
+IMAGE_INTERVAL = 12
+VIDEO_INTERVAL = 1
 
 def publish_frame(context: FrameContext):
   producer.produce(STREAMING_TOPIC, context.frame, key=context.camera_id)
@@ -54,10 +53,25 @@ def handle_image(camera: Camera):
   subject = rx.Subject()
   subject.subscribe(publish_frame)
 
-  rx.interval(INTERVAL).pipe(
+  rx.interval(IMAGE_INTERVAL).pipe(
       start_with(0),
       map(lambda _: get_image(camera)),
       map(lambda image: predict(camera.id, camera.city, image)),
+  ).subscribe(subject)
+
+def handle_video(camera: Camera):
+  url = f"https://www.youtube.com/watch?v={camera.src}"
+  video = pafy.new(url)
+  best = video.getbest(preftype="mp4")
+  cap = VideoCapture(best.url)
+
+  subject = rx.Subject()
+  subject.subscribe(publish_frame)
+
+  rx.interval(VIDEO_INTERVAL).pipe(
+      start_with(0),
+      map(lambda _: cap.read()),
+      map(lambda image: predict(camera.id, camera.city, image))
   ).subscribe(subject)
 
 if __name__ == '__main__':
@@ -71,7 +85,12 @@ if __name__ == '__main__':
 
   for item in data:
     camera = create_camera(item)
-    handle_image(camera)
+    if camera.type == CameraType.VIDEO:
+      handle_video(camera)
+    else:
+      handle_image(camera)
 
-  loop.run_forever()
-    
+  # camera = create_camera(data[-1])
+  # handle_video(camera)
+
+  loop.run_forever()    

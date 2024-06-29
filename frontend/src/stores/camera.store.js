@@ -1,7 +1,7 @@
 /** @format */
 
 import { create } from 'zustand';
-import cameras from '../mock/data.camera.dashboard.json';
+import cameras from '../mock/camera.mock.json';
 
 let initialAnalysys = {
 	0: 0,
@@ -23,7 +23,7 @@ export const useCameraStore = create((set) => ({
 
 	updateCamera: (camera) =>
 		set((state) => {
-				const { camera_id, status } = camera;
+			const { camera_id, status } = camera;
 			const { cameras, analysys } = state;
 			const transformCamera = { ...camera, id: camera_id };
 
@@ -32,7 +32,7 @@ export const useCameraStore = create((set) => ({
 				...cameras,
 				[camera_id]: {
 					...cameras[camera_id],
-					...camera
+					...camera,
 				},
 			};
 
@@ -60,7 +60,7 @@ export const useCameraStore = create((set) => ({
 		set((state) => {
 			if (!state.drawlerCameras.find((c) => c.id === camera.id)) {
 				return {
-					drawlerCameras: [...state.drawlerCameras, camera],
+					drawlerCameras: [camera, ...state.drawlerCameras],
 					openCamerasDrawler: true,
 				};
 			}

@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { HttpClient } from './http-client';
-import { JwtService } from '@nestjs/jwt';
 import { ConfidentalClient } from '../util/interfaces/oauth.interface';
 
 @Injectable()

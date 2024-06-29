@@ -13,7 +13,7 @@ export default function App() {
 			<Routes>
 				<Route path="/" element={<AppLayout />}>
 					<Route index element={<HomePage />} />
-					<Route path="search" element={<SearchPage />} />
+					<Route path="map" element={<SearchPage />} />
 					<Route path="street" element={<StreetListPage />} />
 					<Route path="street/:id" element={<StreetDetailPage />} />
 					<Route path="*" element={<HomePage />} />

@@ -110,7 +110,7 @@ export default function Page() {
 					}}
 					className="flex flex-col"
 					bordered={false}>
-					<Camera id={camera.id} />
+					<Camera id={camera.id} type={camera.type} />
 				</Card>
 				<Card
 					title="Tỉ lệ lấp đầy"

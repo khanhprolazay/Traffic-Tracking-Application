@@ -4,9 +4,8 @@ import { StreetStatusText } from "../../../constant";
 import { Link } from "react-router-dom";
 import { useCameraStore } from "../../../stores";
 
-export default function Table({ data }) {
+export default function Table({ city }) {
 
-	// const { setData } = useDetailStore();
 	const { cameras } = useCameraStore();
 
 	function getTag(id) {
@@ -31,18 +30,6 @@ export default function Table({ data }) {
 		return <Tag color={color}>{StreetStatusText[status] || "Đang tải"}</Tag>;
 	}
 
-	// const handleSaveData = (props) => {
-	// 	setData({
-	// 		cameraID: props.cameraID,
-	// 		nameStreet: props.name,
-	// 		type: props.type,
-	// 		status: props.status,
-	// 		startDate: "27/05/2024",
-	// 		alongDate: 135,
-	// 		totalVehicle: 456
-	// 	})
-	// }
-
 	return (
 		<table className="w-full">
 			<tbody className="table-body">
@@ -54,13 +41,13 @@ export default function Table({ data }) {
 							className="bg-slate-200 dark:bg-[#2b2b35]">
 							<div className="h-[40px] px-[10px] rounded-tr rounded-br relative top-[1px] z-10 min-w-[72px] group-tab bg-white dark:bg-[#141414] flex justify-around items-center">
 								<Typography.Text className="text-sm">
-									Thành phố: Hồ Chí Minh
+									Thành phố: {city.name}
 								</Typography.Text>
 							</div>
 						</Flex>
 					</td>
 				</tr>
-				{data.map((camera) => (
+				{city.cameras.map((camera) => (
 					<tr key={`camera-${camera.id}`}>
 						<td>
 							<Flex
@@ -76,7 +63,6 @@ export default function Table({ data }) {
 									</Link>
 								</Flex>
 								<Typography.Text className="text-sm">
-									3 ngày
 								</Typography.Text>
 							</Flex>
 						</td>

@@ -2,7 +2,7 @@ import { Col, Row } from "antd";
 import { useState } from "react";
 import Siderbar from "./components/Sidebar";
 import AppGoogleMap from "../../components/AppGoogleMap";
-import dataCamera from "../../mock/cameras.mock.json"
+import dataCamera from "../../mock/camera.mock.json"
 
 export default function Page() {
 	const [state, setState] = useState({

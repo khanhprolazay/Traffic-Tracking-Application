@@ -1,6 +1,6 @@
 import {
 	BranchesOutlined,
-	SearchOutlined,
+	MacCommandOutlined,
 	HomeOutlined,
 } from "@ant-design/icons";
 import { Image, Menu, Layout } from "antd";
@@ -9,7 +9,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const items = [
 	{ route: "/", label: "Dashboard", icon: <HomeOutlined /> },
-	{ route: "/search", label: "Search", icon: <SearchOutlined /> },
+	{ route: "/map", label: "Map", icon: <MacCommandOutlined /> },
 	{ route: "/street", label: "Street", icon: <BranchesOutlined /> },
 ];
 

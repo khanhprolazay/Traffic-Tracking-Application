@@ -6,7 +6,7 @@ import TableStreet from "../../components/TableStreet";
 import Camera from "../../components/Camera";
 import AppGoogleMap from "../../components/AppGoogleMap";
 import { useCameraStore } from "../../stores";
-import dataCamera from '../../mock/data.camera.dashboard.json';
+import dataCamera from '../../mock/camera.mock.json';
 import { StreetStatus } from "../../constant";
 
 

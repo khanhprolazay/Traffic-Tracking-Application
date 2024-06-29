@@ -8,22 +8,28 @@ import Notify from '../components/Notify';
 import { ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { useRef, useState } from 'react';
 import { useCameraStore } from '../../../stores';
-import data from '../../../mock/data.camera.dashboard.json';
+import city from '../../../mock/city.mock.json';
 
 const initialFilter = { status: null };
 
 export default function Page() {
 	const formRef = useRef();
-	const { analysys, total } = useCameraStore();
+	const { analysys, total, cameras } = useCameraStore();
 	const [filter, setFilter] = useState(initialFilter);
 	const resetFilter = () => {
 		setFilter(initialFilter);
 		formRef.current.resetFields();
 	};
 
-	let dataFilter = filter.status
-		? data.map((camera) => camera?.status === Number.parseInt(filter.status))
-		: data;
+	
+	const cityFilter = !filter.status
+		? city
+		: city.map((city) => ({
+				...city,
+				cameras: city.cameras.filter(
+					({ id }) => cameras[id]?.status === Number.parseInt(filter.status)
+				),
+			}));
 
 	return (
 		<Row justify="center" className="p-6">
@@ -77,7 +83,9 @@ export default function Page() {
 			</Col>
 			<Col span={24}>
 				<Card title="Các tuyến đường" classNames={{ body: '!p-0' }}>
-						<Table data={dataFilter}/>
+					{cityFilter.map((city) => (
+						<Table key={city.name} city={city} />
+					))}
 				</Card>
 			</Col>
 		</Row>

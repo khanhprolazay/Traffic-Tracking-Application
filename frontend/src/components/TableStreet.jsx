@@ -4,7 +4,7 @@ import { Table, Tag, Typography } from 'antd';
 const { Column } = Table;
 import { VideoCameraOutlined } from '@ant-design/icons';
 import ColumnGroup from 'antd/es/table/ColumnGroup';
-import data from '../mock/data.camera.dashboard.json';
+import data from '../mock/camera.mock.json';
 import { StreetStatus } from '../constant';
 import { useCameraStore } from '../stores';
 

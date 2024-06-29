@@ -40,8 +40,6 @@ export default function RealtimeChart({ id }) {
 		getCameraData(id).then((res) => setData(res));
 	}, []);
 
-	console.log(data)
-
 	useLayoutEffect(() => {
 		if (latestCamera?.id === id) {
 			setData((prev) => {

@@ -1,26 +1,38 @@
+/** @format */
+
 import React, { useEffect, useState } from 'react';
-import { Image } from "antd";
 import PropTypes from 'prop-types';
-import { useCameraStore } from "../stores";
+import { Image } from 'antd';
 import { PROXY_URL } from '../config';
 
 const Camera = ({ id }) => {
-  const { time } = useCameraStore();
+	const [frame, setFrame] = useState(null);
 
-  return (
-    // <Image
-    //   rootClassName="w-full"
-    //   src={`http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=${id}&t=${refreshTime}`}
-    // />
-    <Image
-      rootClassName="w-full"
-      src={`${PROXY_URL}/public/images/${id}.jpeg?t=${time}`}
-    />
-  );
+	useEffect(() => {
+		const es = new EventSource(`${PROXY_URL}/camera/sse/image/${id}`);
+		es.onopen = () => console.log('Connected to sse');
+		es.onerror = () => {
+			throw new Error('Error connecting to sse');
+		};
+		es.onmessage = (e) => {
+			setFrame(e.data);
+		};
+	}, []);
+
+	return (
+		<Image
+			rootClassName="w-full"
+			src={
+				frame
+					? `data:image/jpeg;base64,${frame}`
+					: `${PROXY_URL}/public/images/${id}.jpeg`
+			}
+		/>
+	);
 };
 
 Camera.propTypes = {
-  id: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
 };
 
 export default Camera;

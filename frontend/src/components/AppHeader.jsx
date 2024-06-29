@@ -1,30 +1,22 @@
-import { Layout, Button, Switch, Typography, Flex } from "antd";
+/** @format */
+
+import { Layout, Button, Switch, Typography, Flex } from 'antd';
 import {
 	MenuFoldOutlined,
 	MenuUnfoldOutlined,
 	SunOutlined,
 	MoonOutlined,
-} from "@ant-design/icons";
-import { useState, useLayoutEffect } from "react";
-import { useThemeStore } from "../stores";
-import { getTimeString } from "../utils/date.utils";
-
+} from '@ant-design/icons';
+import { useCameraStore, useThemeStore } from '../stores';
+import { getTimeString } from '../utils/date.utils';
 
 const AppHeader = (props) => {
 	const { collapsed, toggleCollapsed } = props;
-	const [time, setTime] = useState(getTimeString());
+	const { videoTime } = useCameraStore();
 	const { darkMode, toggleDarkMode } = useThemeStore();
 
-	useLayoutEffect(() => {
-		const interval = setInterval(() => {
-			setTime(getTimeString());
-		}, 1000);
-
-		return () => clearInterval(interval);
-	}, []);
-
 	return (
-		<Layout.Header className="px-6 shadow">
+		<Layout.Header className="px-6 shadow dark:bg-black">
 			<Flex align="center" justify="space-between" className="h-full">
 				<Button
 					type="link"
@@ -42,7 +34,7 @@ const AppHeader = (props) => {
 					/>
 					<Typography>
 						<strong>Time: </strong>
-						<span>{time}</span>
+						<span>{getTimeString(videoTime)}</span>
 					</Typography>
 				</Flex>
 			</Flex>

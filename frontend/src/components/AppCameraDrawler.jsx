@@ -9,20 +9,21 @@ const CameraItem = ({ id, name, index, total }) => {
 	const { removeDrawlerCamera, cameras } = useCameraStore();
 	const onItemClick = () => removeDrawlerCamera(id);
 	const status = cameras[id]?.status;
+	const type = cameras[id]?.type;
 
 	return (
 		<div className="relative">
 			<Button
 				size="large"
 				onClick={onItemClick}
-				className="absolute top-0 right-0 border-none focus:outline-none shadow-none"
+				className="absolute top-0 right-0 bg-transparent border-none focus:outline-none shadow-none"
 				icon={<CloseCircleOutlined />}
 			/>
 			<Descriptions column={1} size="ant">
 				<Descriptions.Item label="Tuyến đường">{name}</Descriptions.Item>
 				<Descriptions.Item label="Tình trạng">{status && StreetStatusText[status]}</Descriptions.Item>
 			</Descriptions>
-			<Camera id={id} />
+			<Camera id={id} type={type}/>
 			{index < total - 1 && <Divider />}
 		</div>
 	);
