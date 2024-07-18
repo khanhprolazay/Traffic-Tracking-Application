@@ -1,15 +1,15 @@
 import { InfluxDB } from "@influxdata/influxdb-client-browser";
 import {
-	INFLUX_URL,
 	INFLUX_TOKEN,
 	INFLUX_ORG,
 	INFLUX_BUCKET,
 	INFLUX_MEASUREMENT,
+	PROXY_URL,
 } from "../config";
 import { QueryBuilder } from "../utils";
 
 const client = new InfluxDB({
-	url: INFLUX_URL,
+	url: PROXY_URL,
 	token: INFLUX_TOKEN,
 }).getQueryApi(INFLUX_ORG);
 

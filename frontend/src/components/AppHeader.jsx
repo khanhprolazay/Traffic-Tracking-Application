@@ -9,11 +9,20 @@ import {
 } from '@ant-design/icons';
 import { useCameraStore, useThemeStore } from '../stores';
 import { getTimeString } from '../utils/date.utils';
+import { useLayoutEffect, useState } from 'react';
 
 const AppHeader = (props) => {
 	const { collapsed, toggleCollapsed } = props;
-	const { videoTime } = useCameraStore();
 	const { darkMode, toggleDarkMode } = useThemeStore();
+
+	const [time, setTime] = useState(new Date());
+
+	useLayoutEffect(() => {
+		const interval = setInterval(() => {
+			setTime(new Date());
+		}, 1000);
+		return () => clearInterval(interval);
+	}, []);
 
 	return (
 		<Layout.Header className="px-6 shadow dark:bg-black">
@@ -34,7 +43,7 @@ const AppHeader = (props) => {
 					/>
 					<Typography>
 						<strong>Time: </strong>
-						<span>{getTimeString(videoTime)}</span>
+						<span>{getTimeString(time)}</span>
 					</Typography>
 				</Flex>
 			</Flex>

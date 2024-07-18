@@ -10,7 +10,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const PORT = process.env.PORT;
-  const CORS_ORIGIN = process.env.CORS_ORIGIN;
   const KAFKA_SERVER = process.env.KAFKA_SERVER;
 
   app.enableCors();

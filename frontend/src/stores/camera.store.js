@@ -58,13 +58,20 @@ export const useCameraStore = create((set) => ({
 
 	pushDrawlerCamera: (camera) =>
 		set((state) => {
-			if (!state.drawlerCameras.find((c) => c.id === camera.id)) {
-				return {
-					drawlerCameras: [camera, ...state.drawlerCameras],
-					openCamerasDrawler: true,
-				};
+			const findCamera = state.drawlerCameras.find((c) => c.id === camera.id);
+			let cameras = state.drawlerCameras;
+
+			if (!findCamera) {
+				cameras = [camera, ...cameras];
+			} else {
+				cameras = [camera, ...cameras.filter((c) => c.id !== camera.id)]
 			}
-			return {};
+
+			return {
+				drawlerCameras: cameras,
+				openCamerasDrawler: true,
+			};
+
 		}),
 
 	removeDrawlerCamera: (id) =>

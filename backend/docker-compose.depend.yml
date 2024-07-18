@@ -12,15 +12,15 @@ services:
     env_file:
       - ./env/influxdb.env
 
-  proxy:
-    build: proxy
-    container_name: traffic-proxy
-    networks:
-      - backend
-    ports:
-      - 5000:5000
-    env_file:
-      - ./env/proxy.env
+  # proxy:
+  #   build: proxy
+  #   container_name: traffic-proxy
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - 5000:5000
+  #   env_file:
+  #     - ./env/proxy.env
 
 
 networks:

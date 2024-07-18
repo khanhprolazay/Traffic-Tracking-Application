@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-06-20T12:03:45.606Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="s8SGGYApBRcV8-T1BaUO" version="24.5.3" type="device" pages="14">
+<mxfile host="Electron" modified="2024-07-13T00:31:49.792Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="VI7OSRK2dXe8LAQVpKJv" version="24.5.3" type="device" pages="14">
   <diagram name="architecture" id="TbJ7f7L5GU7RN-3Fn5zy">
     <mxGraphModel dx="2268" dy="868" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -123,7 +123,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="KivquJ4E_F6gJp50F0lE" name="confidental client flow">
-    <mxGraphModel dx="1418" dy="868" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1364" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -154,13 +154,13 @@
         <mxCell id="fRYtxyk5KYD6orMCkWNn-1" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Apache_kafka-icon.svg/1200px-Apache_kafka-icon.svg.png;" parent="vHVzU6NNJvEE4LiJhsax-1" vertex="1">
           <mxGeometry y="38" width="70" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="vHVzU6NNJvEE4LiJhsax-2" value="" style="endArrow=classic;html=1;rounded=0;flowAnimation=1;" parent="1" edge="1">
+        <mxCell id="vHVzU6NNJvEE4LiJhsax-2" value="" style="endArrow=classic;html=1;rounded=0;flowAnimation=1;strokeColor=default;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="344" y="184" as="sourcePoint" />
             <mxPoint x="619" y="184" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="vHVzU6NNJvEE4LiJhsax-3" value="" style="endArrow=classic;html=1;rounded=0;flowAnimation=1;" parent="1" edge="1">
+        <mxCell id="vHVzU6NNJvEE4LiJhsax-3" value="" style="endArrow=classic;html=1;rounded=0;flowAnimation=1;strokeColor=default;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="620" y="210" as="sourcePoint" />
             <mxPoint x="340" y="210" as="targetPoint" />

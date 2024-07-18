@@ -1,1 +1,1 @@
-pip install -r requirement/youtube-dl.txt && sudo apt update && sudo apt install ffmpeg -y && pip install -r requirement/index.txt
+pip install -r requirement/youtube-dl.txt && apt update && apt install ffmpeg -y && pip install -r requirement/index.txt

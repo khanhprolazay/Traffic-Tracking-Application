@@ -1,0 +1,14 @@
+version: "3"
+services:
+  model:
+    container_name: traffic-model
+    build: .
+    env_file:
+      - ./env/.env
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+    name: traffic-monitoring

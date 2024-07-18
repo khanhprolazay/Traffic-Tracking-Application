@@ -11,3 +11,5 @@
 
 **/config/*
 model/src
+*/dist
+*/*.zip

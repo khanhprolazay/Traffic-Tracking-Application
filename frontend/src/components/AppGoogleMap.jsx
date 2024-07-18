@@ -9,6 +9,7 @@ import {
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import iconLocationSearch from "/images/locationSearch.png";
+import iconCamera from "/images/camera.png";
 import { SearchOutlined, AimOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
 import { useCameraStore, useThemeStore } from "../stores";
@@ -195,7 +196,7 @@ const AppGoogleMap = ({
 						key={camera.id}
 						position={camera.position}
 						onClick={() => onMarkerClick(camera)}
-						icon="http://giaothong.hochiminhcity.gov.vn/images/camera_green.png"
+						icon={iconCamera}
 					/>
 				))}
 
